@@ -99,7 +99,6 @@ namespace Game_of_Life
                         }
                     }
 
-                    //Turn in on//off Scratch pad
                 }
             }
 
@@ -212,6 +211,14 @@ namespace Game_of_Life
             universe = scratchpad;
             scratchpad = temp;
 
+            //Reset Generations to 0
+            generations = 0;
+
+            //Update label Text
+            toolStripStatusLabelGenerations.Text = "Generations = 0";
+            
+            //Redraw Panel
+            graphicsPanel1.Invalidate();
         }
         private int CountNeighborsFinite(int x, int y)
         {
@@ -362,28 +369,19 @@ namespace Game_of_Life
             }
         }
 
-        private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-
-        }
 
         // New button in the menu button stip that will clear the universe
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
             ClearUniverse();            
-            NextGeneration();
-            generations = 0;
-            toolStripStatusLabelGenerations.Text = "Generations = 0";
+         
         }
 
         //New Button in the Menu that will clear the universe 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearUniverse();
-            NextGeneration();
-            generations = 0;
-            toolStripStatusLabelGenerations.Text = "Generations = 0";
+           
         }
     }
 
