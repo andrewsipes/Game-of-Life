@@ -15,17 +15,19 @@ namespace Game_of_Life
     public partial class GameOfLife : Form
     {
         // The universe array
-        bool[,] universe = new bool[20, 20];
+        bool[,] universe = new bool[50, 50];
 
         //scratchpad array
-        bool[,] scratchpad = new bool[20,20];
+        bool[,] scratchpad = new bool[50, 50];
 
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
+        Color gridColor10 = Color.Blue;
 
         // The Timer class
         Timer timer = new Timer();
+
 
         // Generation count
         int generations = 0;
@@ -43,7 +45,7 @@ namespace Game_of_Life
         // Calculate the next generation of cells
         private void NextGeneration()
         {
-          
+
             //Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -125,18 +127,28 @@ namespace Game_of_Life
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
-       
+
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
-            float cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
+            float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
-            float cellHeight = graphicsPanel1.ClientSize.Height / universe.GetLength(1);
+            float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
 
             // A Pen for drawing the grid lines (color, width)
             Pen gridPen = new Pen(gridColor, 1);
 
+            // A Pen for drawing the grid 10 lines (color, width)
+            Pen gridPen10 = new Pen(gridColor10, 3);
+
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
+
+            //Code that will show # of Neighbors if > than 0
+            Font font = new Font("Arial", 12f); // Set Font
+
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
 
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -144,6 +156,9 @@ namespace Game_of_Life
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+                    //initialize neighbors
+                    int neighbors = 0;
+
                     // A rectangle to represent each cell in pixels
                     RectangleF cellRect = RectangleF.Empty;
                     cellRect.X = (x * cellWidth);
@@ -155,14 +170,23 @@ namespace Game_of_Life
                     if (universe[x, y] == true)
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
-
-                   
                     }
 
-                    // Outline the cell with a pen
+                    //outline cells
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
 
-                    int neighbors = 0;
+
+                    //draw Grid x 10 Lines
+                    // Outline the every 10 cells with a different pen (size 3)
+                    if (x % 10 == 0)
+                    {
+                        e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, cellRect.X, cellRect.Height);
+                    }
+
+                    if (y % 10 == 0)
+                    {
+                        e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Y);
+                    }
 
                     //Calculates CountNeighbor based on if Finite or Torodial is checked;
                     if (this.finiteToolStripMenuItem.Checked == true)
@@ -172,18 +196,12 @@ namespace Game_of_Life
 
                     else if (this.toroidalToolStripMenuItem.Checked == true)
                     {
-                        neighbors = CountNeighborsToroidal(x, y);
+                        neighbors = CountNeighborsToroidal(x, (y));
                     }
 
-                    //Code that will show # of Neighbors if > than 0
-                    Font font = new Font("Arial", 12f); // Set Font
-
-                    StringFormat stringFormat = new StringFormat();
-                    stringFormat.Alignment = StringAlignment.Center;
-                    stringFormat.LineAlignment = StringAlignment.Center;
 
                     // if statement that determine Neighbor text color for cells that are alive
-                    if (universe[x,y] == true && neighbors > 0)
+                    if (universe[x, y] == true && neighbors > 0)
                     {
                         if (neighbors >= 2 && neighbors < 4)
                         {
@@ -197,7 +215,7 @@ namespace Game_of_Life
                     }
 
                     //if statement that will determine Neighbor text color for cells that are dead 
-                    else if (universe[x,y] == false && neighbors > 0)
+                    else if (universe[x, y] == false && neighbors > 0)
                     {
                         if (neighbors == 3)
                         {
@@ -209,9 +227,11 @@ namespace Game_of_Life
                             e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
                         }
                     }
-                   
+
                 }
             }
+
+
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
@@ -225,17 +245,17 @@ namespace Game_of_Life
             {
                 //FLOATS
                 // Calculate the width and height of each cell in pixels
-                float cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
-                float cellHeight = graphicsPanel1.ClientSize.Height / universe.GetLength(1);
+                float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
+                float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
 
                 // Calculate the cell that was clicked in
                 // CELL X = MOUSE X / CELL WIDTH
-                float x = e.X / cellWidth;
+                int x = (int)(e.X / cellWidth);
                 // CELL Y = MOUSE Y / CELL HEIGHT
-                float y = e.Y / cellHeight;
+                int y = (int)(e.Y / cellHeight);
 
                 // Toggle the cell's state
-                universe[(int)x, (int)y] = !universe[(int)x, (int)y];
+                universe[x, y] = !universe[x, y];
 
                 // Tell Windows you need to repaint
                 graphicsPanel1.Invalidate();
@@ -266,7 +286,7 @@ namespace Game_of_Life
 
             //Update label Text
             toolStripStatusLabelGenerations.Text = "Generations = 0";
-            
+
             //Redraw Panel
             graphicsPanel1.Invalidate();
         }
@@ -331,7 +351,7 @@ namespace Game_of_Life
                         continue;
                     }
                     // if xCheck is less than 0 then set to xLen - 1
-                   if (xCheck < 0)
+                    if (xCheck < 0)
                     {
                         xCheck = xLen - 1;
                     }
@@ -384,9 +404,9 @@ namespace Game_of_Life
         {
             timer.Start();
         }
-       
-       //The two methods below will inversely change the checkbox sates of Torodial and Finite menu tool strips
-       //Essentially when either is clicked it will change the state of each checkbox at the same time so that only 1 of them is actually checked at any given time.
+
+        //The two methods below will inversely change the checkbox sates of Torodial and Finite menu tool strips
+        //Essentially when either is clicked it will change the state of each checkbox at the same time so that only 1 of them is actually checked at any given time.
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.toroidalToolStripMenuItem.Checked == false)
@@ -421,15 +441,15 @@ namespace Game_of_Life
         // New button in the menu button stip that will clear the universe
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
-            ClearUniverse();            
-         
+            ClearUniverse();
+
         }
 
         //New Button in the Menu that will clear the universe 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearUniverse();
-           
+
         }
 
         //Play / Start button in the Menu Strip
@@ -452,7 +472,7 @@ namespace Game_of_Life
             NextGeneration();
         }
 
-       //Menu Strip Cell Color option, will pop open a dialog box for the user to choose then update the color property for cells
+        //Menu Strip Cell Color option, will pop open a dialog box for the user to choose then update the color property for cells
         private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -461,6 +481,7 @@ namespace Game_of_Life
             {
                 cellColor = dlg.Color;
             }
+            graphicsPanel1.Invalidate();
         }
 
         //Tool Strip Cell Color option, will pop open a dialog box for the user to choose then update the color property for cells
@@ -472,11 +493,82 @@ namespace Game_of_Life
             {
                 cellColor = dlg.Color;
             }
+            graphicsPanel1.Invalidate();
         }
+
+        //Menu strip Back color option, will pop open a dialog box for the user to choose then update the color property for the graphics panel
+        private void backColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                graphicsPanel1.BackColor = dlg.Color;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        //Tool strip Back color option, will pop open a dialog box for the user to choose then update the color property for the graphics panel
+        private void backColorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                graphicsPanel1.BackColor = dlg.Color;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        //Menu Strip Grid Color option, will pop open a dialog box for the user to choose then update the color property for the grid
+        private void gridColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor = dlg.Color;
+            }
+            graphicsPanel1.Invalidate();
+        }
+        private void gridColorToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor = dlg.Color;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        //Menu Strip Grid Color 10 option, will pop open a dialog box for the user to choose then update the color property for the grid 10
+        private void gridX10ColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor10 = dlg.Color;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        //Tool Strip Grid Color 10 option, will pop open a dialog box for the user to choose then update the color property for the grid 10
+        private void gridX10ColorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor10 = dlg.Color;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+
+
     }
-
-   
-
 }
     
 
