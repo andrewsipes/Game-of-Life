@@ -15,15 +15,15 @@ namespace Game_of_Life
     public partial class GameOfLife : Form
     {
         // The universe array
-        bool[,] universe = new bool[50, 50];
+        bool[,] universe = new bool[30, 30];
 
         //scratchpad array
-        bool[,] scratchpad = new bool[50, 50];
+        bool[,] scratchpad = new bool[30, 30];
 
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
-        Color gridColor10 = Color.Blue;
+        Color gridColor10 = Color.Black;
 
         // The Timer class
         Timer timer = new Timer();
@@ -175,29 +175,43 @@ namespace Game_of_Life
                     //outline cells
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
 
+                    
+                    //IF STATMEMENTS BELOW WILL DRAW THE BOLD BORDER (X10)
 
-                    //draw Grid x 10 Lines
-                    // Outline the every 10 cells with a different pen (size 3)
-                    if (x % 10 == 0)
-                    {
-                        e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, cellRect.X, cellRect.Height);
-                    }
+                        //This if Statement will draw the borders
+                        if (x == 0 && y == 0)
+                        {
+                            e.Graphics.DrawLine(gridPen10, 0, 0, graphicsPanel1.ClientSize.Width, 0);
+                            e.Graphics.DrawLine(gridPen10, 0, 0, 0, graphicsPanel1.ClientSize.Height);
+                            e.Graphics.DrawLine(gridPen10, graphicsPanel1.ClientSize.Width, 0, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
+                            e.Graphics.DrawLine(gridPen10, 0, graphicsPanel1.ClientSize.Height, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
+                        }
+                    
+                        //This if Statement will draw the vertical lines
+                        if (x % 10 == 0)
+                        {
+                            e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, cellRect.X, graphicsPanel1.ClientSize.Height);
+                        }
 
-                    if (y % 10 == 0)
-                    {
-                        e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Y);
-                    }
+                        //This if Statement will draw the horizontal lines
+                        if (y % 10 == 0)
+                        {
+                            e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, graphicsPanel1.ClientSize.Width, cellRect.Y);
+                        }
 
-                    //Calculates CountNeighbor based on if Finite or Torodial is checked;
-                    if (this.finiteToolStripMenuItem.Checked == true)
-                    {
-                        neighbors = CountNeighborsFinite(x, y);
-                    }
+                    //CALCULATE NEIGHBORS - Will calculate based on which check box option is checked
 
-                    else if (this.toroidalToolStripMenuItem.Checked == true)
-                    {
-                        neighbors = CountNeighborsToroidal(x, (y));
-                    }
+                        //Finite
+                        if (this.finiteToolStripMenuItem.Checked == true)
+                        {
+                            neighbors = CountNeighborsFinite(x, y);
+                        }
+
+                        //Torodial
+                        else if (this.toroidalToolStripMenuItem.Checked == true)
+                        {
+                            neighbors = CountNeighborsToroidal(x, (y));
+                        }
 
 
                     // if statement that determine Neighbor text color for cells that are alive
@@ -531,6 +545,8 @@ namespace Game_of_Life
             }
             graphicsPanel1.Invalidate();
         }
+
+        //Tool Strip Grid Color option, will pop open a dialog box for the user to choose then update the color property for the grid
         private void gridColorToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -566,8 +582,56 @@ namespace Game_of_Life
             graphicsPanel1.Invalidate();
         }
 
+        //Disables Grid in the graphics Panel
+        private void DisableGrid()
+        {           
+            gridColor = Color.Transparent;
+            gridColor10 = Color.Transparent;
+            graphicsPanel1.Invalidate();
+        }
 
+        //Enables Grid in the graphics Panel
+        private void EnableGrid()
+        {
+            gridColor = Color.Black;
+            gridColor10 = Color.Black;
+            graphicsPanel1.Invalidate();
+        }
 
+        //Changes Checkbox of GridToolStripMenuItem and GridToolStripMenuItem1 and toggles the state of the grid
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (gridToolStripMenuItem.Checked == true)
+            {
+                this.gridToolStripMenuItem.CheckState = CheckState.Unchecked;
+                this.gridToolStripMenuItem1.CheckState = CheckState.Unchecked;
+                DisableGrid();
+            }
+
+            else if (gridToolStripMenuItem.Checked == false)
+            {
+                this.gridToolStripMenuItem.CheckState = CheckState.Checked;
+                this.gridToolStripMenuItem1.CheckState = CheckState.Checked;
+                EnableGrid();
+            }
+        }
+        //Changes Checkbox of GridToolStripMenuItem1 and GridToolStripMenuItem and toggles the state of the grid
+        private void gridToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (gridToolStripMenuItem1.Checked == true)
+            {
+                this.gridToolStripMenuItem1.CheckState = CheckState.Unchecked;
+                this.gridToolStripMenuItem.CheckState = CheckState.Unchecked;
+                DisableGrid();
+            }
+
+            else if (gridToolStripMenuItem1.Checked == false)
+            {
+                this.gridToolStripMenuItem1.CheckState = CheckState.Checked;
+                this.gridToolStripMenuItem.CheckState = CheckState.Checked;
+                EnableGrid();
+            }
+        }
     }
 }
     
