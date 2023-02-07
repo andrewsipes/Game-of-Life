@@ -143,13 +143,14 @@ namespace Game_of_Life
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
 
-            //Code that will show # of Neighbors if > than 0
-            Font font = new Font("Arial", 12f); // Set Font
-
+            // Font Style
+            Font font = new Font("Arial", 12f); // Set Font          
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
 
+
+            //GRAPHICS NESTED LOOP
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -214,9 +215,11 @@ namespace Game_of_Life
                         }
 
 
-                    // Here we will write the neighbor count on the cells IF the checkbox state for the Neighbors is checked
+                    // TOGGLE NEIGHBOR COUNT VIEW ON THE CELLS
                     if (neighborCountToolStripMenuItem.Checked == true)
                     {
+                        // Below is the logic used to place numbers and the appropriate text color for the neighbor count
+
                         // if statement that determine Neighbor text color for cells that are alive
                         if (universe[x, y] == true && neighbors > 0)
                         {
@@ -640,13 +643,7 @@ namespace Game_of_Life
             }
         }
 
-        //Shows Options Dialog Box when Options is clicked
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OptionsDialog dlg = new OptionsDialog();
-            dlg.ShowDialog();
-        }
-
+ 
         //Menu Tool strip option that toggles the neighbor count on the cells
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -685,6 +682,16 @@ namespace Game_of_Life
                 this.neighborCountToolStripMenuItem.CheckState = CheckState.Checked;
                 graphicsPanel1.Invalidate();
             }
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsDialog dlg = new OptionsDialog();
+            
+            if (DialogResult.OK == dlg.ShowDialog())
+            { 
+            }
+
         }
     }
 }
