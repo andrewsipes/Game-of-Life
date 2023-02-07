@@ -30,16 +30,20 @@
         {
             this.OkayButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.IntervalLabel = new System.Windows.Forms.Label();
             this.CellWidthLabel = new System.Windows.Forms.Label();
             this.CellHeightLabel = new System.Windows.Forms.Label();
+            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownWidth = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownHeight = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHeight)).BeginInit();
             this.SuspendLayout();
             // 
             // OkayButton
             // 
+            this.OkayButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OkayButton.Location = new System.Drawing.Point(50, 178);
             this.OkayButton.Name = "OkayButton";
             this.OkayButton.Size = new System.Drawing.Size(87, 33);
@@ -56,27 +60,6 @@
             this.CancelButton.TabIndex = 1;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(198, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(67, 20);
-            this.textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(198, 78);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(67, 20);
-            this.textBox2.TabIndex = 3;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(198, 118);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(67, 20);
-            this.textBox3.TabIndex = 4;
             // 
             // IntervalLabel
             // 
@@ -105,25 +88,50 @@
             this.CellHeightLabel.TabIndex = 7;
             this.CellHeightLabel.Text = "Height of Universe in Cells";
             // 
+            // numericUpDownInterval
+            // 
+            this.numericUpDownInterval.Location = new System.Drawing.Point(194, 38);
+            this.numericUpDownInterval.Name = "numericUpDownInterval";
+            this.numericUpDownInterval.Size = new System.Drawing.Size(71, 20);
+            this.numericUpDownInterval.TabIndex = 8;
+            // 
+            // numericUpDownWidth
+            // 
+            this.numericUpDownWidth.Location = new System.Drawing.Point(194, 79);
+            this.numericUpDownWidth.Name = "numericUpDownWidth";
+            this.numericUpDownWidth.Size = new System.Drawing.Size(71, 20);
+            this.numericUpDownWidth.TabIndex = 9;
+            // 
+            // numericUpDownHeight
+            // 
+            this.numericUpDownHeight.Location = new System.Drawing.Point(194, 119);
+            this.numericUpDownHeight.Name = "numericUpDownHeight";
+            this.numericUpDownHeight.Size = new System.Drawing.Size(71, 20);
+            this.numericUpDownHeight.TabIndex = 10;
+            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.OkayButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(313, 236);
+            this.Controls.Add(this.numericUpDownHeight);
+            this.Controls.Add(this.numericUpDownWidth);
+            this.Controls.Add(this.numericUpDownInterval);
             this.Controls.Add(this.CellHeightLabel);
             this.Controls.Add(this.CellWidthLabel);
             this.Controls.Add(this.IntervalLabel);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OkayButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OptionsDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "OptionsDialog";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHeight)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,11 +141,11 @@
 
         private System.Windows.Forms.Button OkayButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label IntervalLabel;
         private System.Windows.Forms.Label CellWidthLabel;
         private System.Windows.Forms.Label CellHeightLabel;
+        public System.Windows.Forms.NumericUpDown numericUpDownWidth;
+        public System.Windows.Forms.NumericUpDown numericUpDownHeight;
+        public System.Windows.Forms.NumericUpDown numericUpDownInterval;
     }
 }

@@ -14,11 +14,41 @@ namespace Game_of_Life
 {
     public partial class GameOfLife : Form
     {
+        
+        //Set default values for Cell Width and H
+        private static int UniverseCellWidth = 30;
+        private static int UniverseCellHeight = 30;
+
+
+        //Sets UniverseCellWidth
+        public void SetUniverseCellWidth(int _UniverseCellWidth)
+        {
+            UniverseCellWidth = _UniverseCellWidth;
+        }
+
+        //Sets UniverseCellHeight
+        public void SetUniverseCellHeight(int _UniverseCellHeight)
+        {
+            UniverseCellHeight = _UniverseCellHeight;
+        }
+
+        //Get UniverseCellWidth
+        public int GetUniverseCellWidth()
+        {
+            return UniverseCellWidth;
+        }
+
+        //Get UniverseCellHeight
+        public int GetUniverseCellHeight()
+        {
+            return UniverseCellHeight;
+        }
+
         // The universe array
-        bool[,] universe = new bool[30, 30];
+        bool [,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
 
         //scratchpad array
-        bool[,] scratchpad = new bool[30, 30];
+        bool[,] scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -27,7 +57,6 @@ namespace Game_of_Life
 
         // The Timer class
         Timer timer = new Timer();
-
 
         // Generation count
         int generations = 0;
@@ -149,9 +178,11 @@ namespace Game_of_Life
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
 
+            //Initiate aliveCount which is used to hold the number of alive cells in it's count
+            int aliveCount = 0;
 
             //GRAPHICS NESTED LOOP
-            // Iterate through the universe in the y, top to bottom
+            //Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -252,11 +283,18 @@ namespace Game_of_Life
 
                     }
 
+
+                    // Here we will count the cells that are alive for display
+                    if (universe[x,y] == true)
+                    {
+                        aliveCount++;
+                    }
                 }
             }
 
-
-
+            //Update AliveCountLabel to correct # of cells alive
+            ToolStripStatusAliveLabel.Text = "Alive: " + aliveCount.ToString();
+         
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -684,14 +722,60 @@ namespace Game_of_Life
             }
         }
 
+        //Options Menu that displays on Click
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog();
-            
-            if (DialogResult.OK == dlg.ShowDialog())
-            { 
+
+            //Retrieves the current values for each textbox
+            dlg.numericUpDownWidth.Value = GetUniverseCellWidth();
+            dlg.numericUpDownHeight.Value = GetUniverseCellHeight();
+            dlg.numericUpDownInterval.Value = timer.Interval;
+
+            //If user presses okay, We will update the parameters
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //Update Options according to dialog box
+                SetUniverseCellWidth((int)dlg.numericUpDownWidth.Value);
+                SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
+                timer.Interval = (int)dlg.numericUpDownInterval.Value;
+
+                //Copy Contents of current Universe into another Universe with the new size
+                bool[,] newUniverse = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
+               
+                //Create a new game of life
+                GameOfLife gameOfLife = new GameOfLife();
+
+                //Copy the contents of the Universe we created into the new game of life universe so it mimics the old universe
+                gameOfLife.universe = newUniverse;    
+                
+                //show the new game of life
+                gameOfLife.Show();
+                this.Dispose(false);
+
+                //Update the Interval label
+                ToolStripStatusIntervalLabel.Text = "Interval: " + timer.Interval.ToString();
+                dlg.Close();
             }
 
+        }
+
+        //ResizeArray - this will copy the contents from the old array into the new array so we no longer have sizing issues in the code.
+        bool [,] ResizeArray(bool[,] array, int x, int y)
+        {
+            bool[,] ReplacementArray = new bool[x, y];
+            int OriginalRowLength = array.GetLength(0);
+            int OriginalColumnLength = array.GetLength(1);
+
+            for (int i = 0; i < OriginalRowLength; i++)
+            {
+                for (int j = 0; j < OriginalColumnLength; j++)
+                {
+                    ReplacementArray[i, j] = array[i, j];
+                }
+            }
+
+            return ReplacementArray;
         }
     }
 }
