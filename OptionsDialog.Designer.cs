@@ -91,6 +91,11 @@
             // numericUpDownInterval
             // 
             this.numericUpDownInterval.Location = new System.Drawing.Point(194, 38);
+            this.numericUpDownInterval.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.numericUpDownInterval.Name = "numericUpDownInterval";
             this.numericUpDownInterval.Size = new System.Drawing.Size(71, 20);
             this.numericUpDownInterval.TabIndex = 8;

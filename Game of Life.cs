@@ -15,9 +15,10 @@ namespace Game_of_Life
     public partial class GameOfLife : Form
     {
         
-        //Set default values for Cell Width and H
+        //Set default values for Cell Width, Height and Interval
         private static int UniverseCellWidth = 30;
         private static int UniverseCellHeight = 30;
+        private int TimerInterval = 100;
 
 
         //Sets UniverseCellWidth
@@ -30,6 +31,18 @@ namespace Game_of_Life
         public void SetUniverseCellHeight(int _UniverseCellHeight)
         {
             UniverseCellHeight = _UniverseCellHeight;
+        }
+
+        //Sets TimerInterval
+        public void SetTimerInterval(int _TimerInterval)
+        {
+            TimerInterval = _TimerInterval;
+        }
+
+        //Gets TimerInterval
+        public int GetTimerInterval()
+        {
+            return TimerInterval;
         }
 
         //Get UniverseCellWidth
@@ -66,7 +79,7 @@ namespace Game_of_Life
             InitializeComponent();
 
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = TimerInterval; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
         }
@@ -730,7 +743,7 @@ namespace Game_of_Life
             //Retrieves the current values for each textbox
             dlg.numericUpDownWidth.Value = GetUniverseCellWidth();
             dlg.numericUpDownHeight.Value = GetUniverseCellHeight();
-            dlg.numericUpDownInterval.Value = timer.Interval;
+            dlg.numericUpDownInterval.Value = GetTimerInterval();
 
             //If user presses okay, We will update the parameters
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -738,7 +751,7 @@ namespace Game_of_Life
                 //Update Options according to dialog box
                 SetUniverseCellWidth((int)dlg.numericUpDownWidth.Value);
                 SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
-                timer.Interval = (int)dlg.numericUpDownInterval.Value;
+                SetTimerInterval((int)dlg.numericUpDownInterval.Value);
 
                 //Copy Contents of current Universe into another Universe with the new size
                 bool[,] newUniverse = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
@@ -754,7 +767,7 @@ namespace Game_of_Life
                 this.Dispose(false);
 
                 //Update the Interval label
-                ToolStripStatusIntervalLabel.Text = "Interval: " + timer.Interval.ToString();
+                gameOfLife.ToolStripStatusIntervalLabel.Text = "Interval: " + GetTimerInterval().ToString();
                 dlg.Close();
             }
 
