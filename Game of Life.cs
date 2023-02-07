@@ -214,32 +214,39 @@ namespace Game_of_Life
                         }
 
 
-                    // if statement that determine Neighbor text color for cells that are alive
-                    if (universe[x, y] == true && neighbors > 0)
+                    // Here we will write the neighbor count on the cells IF the checkbox state for the Neighbors is checked
+                    if (neighborCountToolStripMenuItem.Checked == true)
                     {
-                        if (neighbors >= 2 && neighbors < 4)
+                        // if statement that determine Neighbor text color for cells that are alive
+                        if (universe[x, y] == true && neighbors > 0)
                         {
-                            e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, cellRect, stringFormat);
+                            if (neighbors >= 2 && neighbors < 4)
+                            {
+                                e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, cellRect, stringFormat);
+                            }
+
+                            else
+                            {
+                                e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
+                            }
                         }
 
-                        else
-                        {
-                            e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
-                        }
-                    }
 
-                    //if statement that will determine Neighbor text color for cells that are dead 
-                    else if (universe[x, y] == false && neighbors > 0)
-                    {
-                        if (neighbors == 3)
+                        //if statement that will determine Neighbor text color for cells that are dead 
+                        else if (universe[x, y] == false && neighbors > 0)
                         {
-                            e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, cellRect, stringFormat);
+                            if (neighbors == 3)
+                            {
+                                e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, cellRect, stringFormat);
+                            }
+
+                            else
+                            {
+                                e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
+                            }
                         }
 
-                        else
-                        {
-                            e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
-                        }
+
                     }
 
                 }
@@ -630,6 +637,53 @@ namespace Game_of_Life
                 this.gridToolStripMenuItem1.CheckState = CheckState.Checked;
                 this.gridToolStripMenuItem.CheckState = CheckState.Checked;
                 EnableGrid();
+            }
+        }
+
+        //Shows Options Dialog Box when Options is clicked
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsDialog dlg = new OptionsDialog();
+            dlg.ShowDialog();
+        }
+
+        //Menu Tool strip option that toggles the neighbor count on the cells
+        private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (neighborCountToolStripMenuItem.Checked == true)
+            {
+                this.neighborCountToolStripMenuItem1.CheckState = CheckState.Unchecked;
+                this.neighborCountToolStripMenuItem.CheckState = CheckState.Unchecked;
+                graphicsPanel1.Invalidate();
+            }
+
+            else if (neighborCountToolStripMenuItem.Checked == false)
+            {
+                this.neighborCountToolStripMenuItem1.CheckState = CheckState.Checked;
+                this.neighborCountToolStripMenuItem.CheckState = CheckState.Checked;
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+        //Context Menu Tool strip option that toggles the neighbor count on the cells
+        private void neighborCountToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+
+            if (neighborCountToolStripMenuItem1.Checked == true)
+            {
+                this.neighborCountToolStripMenuItem1.CheckState = CheckState.Unchecked;
+                this.neighborCountToolStripMenuItem.CheckState = CheckState.Unchecked;
+                graphicsPanel1.Invalidate();
+                
+            }
+
+            else if (neighborCountToolStripMenuItem1.Checked == false)
+            {
+                this.neighborCountToolStripMenuItem1.CheckState = CheckState.Checked;
+                this.neighborCountToolStripMenuItem.CheckState = CheckState.Checked;
+                graphicsPanel1.Invalidate();
             }
         }
     }
