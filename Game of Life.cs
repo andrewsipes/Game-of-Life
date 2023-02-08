@@ -5,68 +5,162 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Game_of_Life
 {
     public partial class GameOfLife : Form
     {
-        
-        //Set default values for Cell Width, Height and Interval
-        private static int UniverseCellWidth = 30;
-        private static int UniverseCellHeight = 30;
-        private int TimerInterval = 100;
+        //DEFAULT PROPERTIES
+            //Set default values for Cell Width, Height and Interval
+            private static int UniverseCellWidth = 30;
+            private static int UniverseCellHeight = 30;
+            private int TimerInterval = 100;
+
+            //Default Drawing Colors
+            private Color gridColor = Color.Black;
+            private Color cellColor = Color.Gray;
+            private Color gridColor10 = Color.Black;
+            private Color backColor = Color.White;
+            private Color tempGridColor;
+            private Color tempGridColor10;
 
 
+             
+        //GETTERS AND SETTERS
         //Sets UniverseCellWidth
-        public void SetUniverseCellWidth(int _UniverseCellWidth)
-        {
-            UniverseCellWidth = _UniverseCellWidth;
-        }
+            public void SetUniverseCellWidth(int _UniverseCellWidth)
+            {
+                UniverseCellWidth = _UniverseCellWidth;
+            }
 
-        //Sets UniverseCellHeight
-        public void SetUniverseCellHeight(int _UniverseCellHeight)
-        {
-            UniverseCellHeight = _UniverseCellHeight;
-        }
+            //Sets UniverseCellHeight
+            public void SetUniverseCellHeight(int _UniverseCellHeight)
+            {
+                UniverseCellHeight = _UniverseCellHeight;
+            }
 
-        //Sets TimerInterval
-        public void SetTimerInterval(int _TimerInterval)
-        {
-            TimerInterval = _TimerInterval;
-        }
+            //Sets TimerInterval
+            public void SetTimerInterval(int _TimerInterval)
+            {
+                TimerInterval = _TimerInterval;
+            }
+            
+            //Set cellColor
+            public void SetCellColor(Color _color)
+            {
+                cellColor = _color;
+            }
 
-        //Gets TimerInterval
-        public int GetTimerInterval()
-        {
-            return TimerInterval;
-        }
 
-        //Get UniverseCellWidth
-        public int GetUniverseCellWidth()
-        {
-            return UniverseCellWidth;
-        }
+            //Set gridColor
+            public void SetGridColor(Color _color)
+            {
+                gridColor = _color;
+            }
 
-        //Get UniverseCellHeight
-        public int GetUniverseCellHeight()
-        {
-            return UniverseCellHeight;
-        }
+
+            //Set gridColor10
+            public void SetGridColor10(Color _color)
+            {
+                gridColor10 = _color;
+            }
+
+            //Set backColor
+            public void SetBackColor(Color _color)
+            {
+                backColor = _color;
+                
+            }
+
+            //Set tempgridColor10
+            public void SetTempGridColor(Color _color)
+            {
+                tempGridColor = _color;
+            }
+
+            //Set tempgridColor10
+            public void SetTempGridColor10(Color _color)
+                {
+                    tempGridColor10 = _color;
+                }
+
+            //Gets TimerInterval
+            public int GetTimerInterval()
+                        {
+                            return TimerInterval;
+                        }
+
+            //Get UniverseCellWidth
+            public int GetUniverseCellWidth()
+            {
+                return UniverseCellWidth;
+            }
+
+            //Get UniverseCellHeight
+            public int GetUniverseCellHeight()
+            {
+                return UniverseCellHeight;
+            }
+
+            //Gets Width of Window
+            public int GetClientSizeWidth()
+            {
+                return this.Size.Width;
+            }
+            
+            //Gets Height of Window
+            public int GetClientSizeHeight()
+            {
+                return this.Size.Height;
+            }
+
+            //Get CellColor
+            public Color GetCellColor()
+            {
+                return cellColor;
+            }
+
+            //Get GridColor
+            public Color GetGridColor()
+            {
+                return gridColor;
+            }
+
+            //Get GridColor10
+            public Color GetGridColor10()
+            {
+                return gridColor10;
+            }
+
+            //Get CellColor
+            public Color GetBackColor()
+            {
+                return backColor;
+            }
+
+            //Get tempgridColor
+            public Color GetTempGridColor()
+            {
+                return tempGridColor;
+            }
+
+            //Get tempgridColor10
+            public Color GetTempGridColor10()
+            { 
+                return tempGridColor10;
+            }
 
         // The universe array
         bool [,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
 
         //scratchpad array
         bool[,] scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
-
-        // Drawing colors
-        Color gridColor = Color.Black;
-        Color cellColor = Color.Gray;
-        Color gridColor10 = Color.Black;
 
         // The Timer class
         Timer timer = new Timer();
@@ -169,6 +263,8 @@ namespace Game_of_Life
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
+            //Sets Backcolor to the panel
+            graphicsPanel1.BackColor = GetBackColor();
 
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
@@ -365,6 +461,8 @@ namespace Game_of_Life
             //Redraw Panel
             graphicsPanel1.Invalidate();
         }
+
+        //Count Neightbors Finite Method
         private int CountNeighborsFinite(int x, int y)
         {
             int count = 0;
@@ -578,7 +676,7 @@ namespace Game_of_Life
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                graphicsPanel1.BackColor = dlg.Color;
+                backColor = dlg.Color;
             }
             graphicsPanel1.Invalidate();
         }
@@ -590,7 +688,7 @@ namespace Game_of_Life
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                graphicsPanel1.BackColor = dlg.Color;
+                backColor = dlg.Color;
             }
             graphicsPanel1.Invalidate();
         }
@@ -644,18 +742,21 @@ namespace Game_of_Life
         }
 
         //Disables Grid in the graphics Panel
+        //We will store the old color since we have to make the current color properties transparent
         private void DisableGrid()
-        {           
+        {
+            tempGridColor = GetGridColor();
+            tempGridColor10 = GetGridColor10();
             gridColor = Color.Transparent;
-            gridColor10 = Color.Transparent;
+            gridColor10 = Color.Transparent;          
             graphicsPanel1.Invalidate();
         }
 
         //Enables Grid in the graphics Panel
         private void EnableGrid()
         {
-            gridColor = Color.Black;
-            gridColor10 = Color.Black;
+            gridColor = GetTempGridColor();
+            gridColor10 = GetTempGridColor10();
             graphicsPanel1.Invalidate();
         }
 
@@ -736,6 +837,9 @@ namespace Game_of_Life
         }
 
         //Options Menu that displays on Click
+        //If Changes are made, essentially we need to copy the old parameters and create a new form since arrays are not resizeable
+        //Then we copy the properties back to the new form.
+
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog();
@@ -753,6 +857,16 @@ namespace Game_of_Life
                 SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
                 SetTimerInterval((int)dlg.numericUpDownInterval.Value);
 
+                //Store WindowSizeProperties
+                int width = GetClientSizeWidth();
+                int Height = GetClientSizeHeight();
+
+                //Store Current Color Properties
+                Color currentCellColor = GetCellColor();
+                Color currentGridColor = GetGridColor();
+                Color currentGridColor10 = GetGridColor10();
+                Color currentBackColor = GetBackColor();
+
                 //Copy Contents of current Universe into another Universe with the new size
                 bool[,] newUniverse = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
                
@@ -760,10 +874,24 @@ namespace Game_of_Life
                 GameOfLife gameOfLife = new GameOfLife();
 
                 //Copy the contents of the Universe we created into the new game of life universe so it mimics the old universe
-                gameOfLife.universe = newUniverse;    
-                
+                gameOfLife.universe = newUniverse;
+                                             
                 //show the new game of life
                 gameOfLife.Show();
+
+                //Set window size to appropriate size
+                gameOfLife.Size = new Size(width, Height);
+
+                //Copy the Color properties to the form
+                gameOfLife.SetCellColor(currentCellColor);
+                gameOfLife.SetGridColor(currentGridColor);
+                gameOfLife.SetGridColor10(currentGridColor10);
+                gameOfLife.SetBackColor(currentBackColor);
+
+                gameOfLife.graphicsPanel1.BackColor = gameOfLife.GetBackColor();
+                gameOfLife.graphicsPanel1.Invalidate();
+
+                //Prevents disposal
                 this.Dispose(false);
 
                 //Update the Interval label
