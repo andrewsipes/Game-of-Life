@@ -160,7 +160,6 @@ namespace Game_of_Life
         bool isHUDVisible = true;
         bool isTorodial = true;
         bool isGridVisible = true;
-        bool isFinite = false;
 
 
         // The universe array
@@ -352,13 +351,13 @@ namespace Game_of_Life
                     //Finite
                     if (isTorodial == true)
                         {
-                            neighbors = CountNeighborsFinite(x, y);
+                            neighbors = CountNeighborsToroidal(x, y);
                         }
 
                         //Torodial
-                        else if (isFinite == true)
+                        else
                         {
-                            neighbors = CountNeighborsToroidal(x, y);
+                            neighbors = CountNeighborsFinite(x, y);
                         }
 
 
@@ -592,15 +591,13 @@ namespace Game_of_Life
             if (this.toroidalToolStripMenuItem.Checked == false)
             {
                 isTorodial = true;
-                isFinite = false;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Checked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
             }
 
             else if (this.toroidalToolStripMenuItem.Checked == true)
             {
-                isTorodial = false;
-                isFinite = true;    
+                isTorodial = false; 
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
             }
@@ -611,7 +608,6 @@ namespace Game_of_Life
         {
             if (this.finiteToolStripMenuItem.Checked == false)
             {
-                isFinite = true;
                 isTorodial = false;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
@@ -619,7 +615,7 @@ namespace Game_of_Life
 
             else if (this.finiteToolStripMenuItem.Checked == true)
             {
-                isFinite = false;
+
                 isTorodial = true;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Checked;
