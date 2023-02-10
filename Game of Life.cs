@@ -156,10 +156,10 @@ namespace Game_of_Life
             }
 
         //BOOLS
-        bool isNeighborCountVisible = true;
-        bool isHUDVisible = true;
-        bool isTorodial = true;
-        bool isGridVisible = true;
+            bool isNeighborCountVisible = true;
+            bool isHUDVisible = true;
+            bool isTorodial = true;
+            bool isGridVisible = true;
 
 
         // The universe array
@@ -362,7 +362,7 @@ namespace Game_of_Life
 
 
                     // TOGGLE NEIGHBOR COUNT VIEW ON THE CELLS
-                    if (neighborCountToolStripMenuItem.Checked == true)
+                    if (isNeighborCountVisible == true)
                     {
                         // Below is the logic used to place numbers and the appropriate text color for the neighbor count
 
@@ -812,6 +812,7 @@ namespace Game_of_Life
 
             if (neighborCountToolStripMenuItem.Checked == true)
             {
+                isNeighborCountVisible = false;
                 this.neighborCountToolStripMenuItem1.CheckState = CheckState.Unchecked;
                 this.neighborCountToolStripMenuItem.CheckState = CheckState.Unchecked;
                 graphicsPanel1.Invalidate();
@@ -819,6 +820,7 @@ namespace Game_of_Life
 
             else if (neighborCountToolStripMenuItem.Checked == false)
             {
+                isNeighborCountVisible = true;
                 this.neighborCountToolStripMenuItem1.CheckState = CheckState.Checked;
                 this.neighborCountToolStripMenuItem.CheckState = CheckState.Checked;
                 graphicsPanel1.Invalidate();
@@ -832,6 +834,7 @@ namespace Game_of_Life
 
             if (neighborCountToolStripMenuItem1.Checked == true)
             {
+                isNeighborCountVisible = false;
                 this.neighborCountToolStripMenuItem1.CheckState = CheckState.Unchecked;
                 this.neighborCountToolStripMenuItem.CheckState = CheckState.Unchecked;
                 graphicsPanel1.Invalidate();
@@ -840,6 +843,7 @@ namespace Game_of_Life
 
             else if (neighborCountToolStripMenuItem1.Checked == false)
             {
+                isNeighborCountVisible = true;
                 this.neighborCountToolStripMenuItem1.CheckState = CheckState.Checked;
                 this.neighborCountToolStripMenuItem.CheckState = CheckState.Checked;
                 graphicsPanel1.Invalidate();
