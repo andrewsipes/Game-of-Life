@@ -33,7 +33,8 @@ namespace Game_of_Life
 
              
         //GETTERS AND SETTERS
-        //Sets UniverseCellWidth
+
+            //Sets UniverseCellWidth
             public void SetUniverseCellWidth(int _UniverseCellWidth)
             {
                 UniverseCellWidth = _UniverseCellWidth;
@@ -57,13 +58,11 @@ namespace Game_of_Life
                 cellColor = _color;
             }
 
-
             //Set gridColor
             public void SetGridColor(Color _color)
             {
                 gridColor = _color;
             }
-
 
             //Set gridColor10
             public void SetGridColor10(Color _color)
@@ -155,6 +154,14 @@ namespace Game_of_Life
             { 
                 return tempGridColor10;
             }
+
+        //BOOLS
+        bool isNeighborCountVisible = true;
+        bool isHUDVisible = true;
+        bool isTorodial = true;
+        bool isGridVisible = true;
+        bool isFinite = false;
+
 
         // The universe array
         bool [,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
@@ -342,16 +349,16 @@ namespace Game_of_Life
 
                     //CALCULATE NEIGHBORS - Will calculate based on which check box option is checked
 
-                        //Finite
-                        if (this.finiteToolStripMenuItem.Checked == true)
+                    //Finite
+                    if (isTorodial == true)
                         {
                             neighbors = CountNeighborsFinite(x, y);
                         }
 
                         //Torodial
-                        else if (this.toroidalToolStripMenuItem.Checked == true)
+                        else if (isFinite == true)
                         {
-                            neighbors = CountNeighborsToroidal(x, (y));
+                            neighbors = CountNeighborsToroidal(x, y);
                         }
 
 
@@ -584,12 +591,16 @@ namespace Game_of_Life
         {
             if (this.toroidalToolStripMenuItem.Checked == false)
             {
+                isTorodial = true;
+                isFinite = false;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Checked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
             }
 
             else if (this.toroidalToolStripMenuItem.Checked == true)
             {
+                isTorodial = false;
+                isFinite = true;    
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
             }
@@ -600,12 +611,16 @@ namespace Game_of_Life
         {
             if (this.finiteToolStripMenuItem.Checked == false)
             {
+                isFinite = true;
+                isTorodial = false;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
             }
 
             else if (this.finiteToolStripMenuItem.Checked == true)
             {
+                isFinite = false;
+                isTorodial = true;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Checked;
             }
@@ -795,7 +810,6 @@ namespace Game_of_Life
             }
         }
 
- 
         //Menu Tool strip option that toggles the neighbor count on the cells
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
