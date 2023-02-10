@@ -287,14 +287,17 @@ namespace Game_of_Life
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
 
-            // Font Style
-            Font font = new Font("Arial", 12f); // Set Font          
+            // Font Style for NeighborCount
+            Font font = new Font("Arial", 12f);
             StringFormat stringFormat = new StringFormat();
+
+            //Set Alignment
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
 
-            //Initiate aliveCount which is used to hold the number of alive cells in it's count
+            //initialize Alive Count
             int aliveCount = 0;
+
 
             //GRAPHICS NESTED LOOP
             //Iterate through the universe in the y, top to bottom
@@ -409,13 +412,41 @@ namespace Game_of_Life
                     if (universe[x,y] == true)
                     {
                         aliveCount++;
+
                     }
+
+
                 }
+
+           
             }
 
             //Update AliveCountLabel to correct # of cells alive
             ToolStripStatusAliveLabel.Text = "Alive: " + aliveCount.ToString();
-         
+
+
+            // Font Style for Hud
+            font = new Font("Arial", 12f, FontStyle.Bold);
+
+            //Draw HUD is option is true
+            if (isHUDVisible == true)
+            {
+                //Determine string display if countneighbors is toroidal or finite
+                string boundary;
+                if (isTorodial == true)
+                {
+                    boundary = "Torodial";
+                }
+
+                else
+                {
+                    boundary = "Finite";
+                }
+
+                //write the text at the bottom left of the window
+                e.Graphics.DrawString("Generations: " + generations + "\n" + "CellCount: " + aliveCount + "\n" + "BoundaryType: " + boundary + "\n" + "UniverseSize: {Width = " + universe.GetLength(0) + ", Height = " + universe.GetLength(1) + "}", font, Brushes.Blue, 0, GetClientSizeHeight() - 190);
+            }
+
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -599,13 +630,16 @@ namespace Game_of_Life
                 isTorodial = true;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Checked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
+                graphicsPanel1.Invalidate();
             }
-
+        
             else if (this.toroidalToolStripMenuItem.Checked == true)
             {
                 isTorodial = false; 
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
+                graphicsPanel1.Invalidate();
+
             }
         }
 
@@ -617,6 +651,7 @@ namespace Game_of_Life
                 isTorodial = false;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
+                graphicsPanel1.Invalidate();
             }
 
             else if (this.finiteToolStripMenuItem.Checked == true)
@@ -625,8 +660,10 @@ namespace Game_of_Life
                 isTorodial = true;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Checked;
+                graphicsPanel1.Invalidate();
             }
         }
+        
 
         // New button in the menu button stip that will clear the universe
         private void newToolStripButton_Click(object sender, EventArgs e)
@@ -942,7 +979,48 @@ namespace Game_of_Life
 
             return ReplacementArray;
         }
+
+        private void HUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (isHUDVisible == true)
+            {
+                isHUDVisible = false;
+                this.HUDToolStripMenuItem1.CheckState = CheckState.Unchecked;
+                this.HUDToolStripMenuItem.CheckState = CheckState.Unchecked;
+                graphicsPanel1.Invalidate();
+            }
+
+            else if (isHUDVisible == false)
+            {
+                isHUDVisible = true;
+                this.HUDToolStripMenuItem1.CheckState = CheckState.Checked;
+                this.HUDToolStripMenuItem.CheckState = CheckState.Checked;
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+        private void HUDToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            if (isHUDVisible == true)
+            {
+                isHUDVisible = false;
+                this.HUDToolStripMenuItem1.CheckState = CheckState.Unchecked;
+                this.HUDToolStripMenuItem.CheckState = CheckState.Unchecked;
+                graphicsPanel1.Invalidate();
+
+            }
+
+            else if (isHUDVisible == false)
+            {
+                isHUDVisible = true;
+                this.HUDToolStripMenuItem1.CheckState = CheckState.Checked;
+                this.HUDToolStripMenuItem.CheckState = CheckState.Checked;
+                graphicsPanel1.Invalidate();
+            }
+        }
     }
-}
-    
+
+    }
 
