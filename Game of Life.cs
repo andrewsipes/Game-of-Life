@@ -319,11 +319,15 @@ namespace Game_of_Life
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
 
-                    //outline cells
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    //Draw the Grid if option is selected
+                    if (isGridVisible == true)
 
-                    
-                    //IF STATMEMENTS BELOW WILL DRAW THE BOLD BORDER (X10)
+                    {
+                        //outline cells
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+
+                        //IF STATMEMENTS BELOW WILL DRAW THE BOLD BORDER (X10)
 
                         //This if Statement will draw the borders
                         if (x == 0 && y == 0)
@@ -333,7 +337,7 @@ namespace Game_of_Life
                             e.Graphics.DrawLine(gridPen10, graphicsPanel1.ClientSize.Width, 0, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
                             e.Graphics.DrawLine(gridPen10, 0, graphicsPanel1.ClientSize.Height, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
                         }
-                    
+
                         //This if Statement will draw the vertical lines
                         if (x % 10 == 0)
                         {
@@ -345,6 +349,8 @@ namespace Game_of_Life
                         {
                             e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, graphicsPanel1.ClientSize.Width, cellRect.Y);
                         }
+                    }
+                  
 
                     //CALCULATE NEIGHBORS - Will calculate based on which check box option is checked
 
@@ -776,6 +782,7 @@ namespace Game_of_Life
         {
             if (gridToolStripMenuItem.Checked == true)
             {
+                isGridVisible = false;
                 this.gridToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.gridToolStripMenuItem1.CheckState = CheckState.Unchecked;
                 DisableGrid();
@@ -783,6 +790,7 @@ namespace Game_of_Life
 
             else if (gridToolStripMenuItem.Checked == false)
             {
+                isGridVisible = true;
                 this.gridToolStripMenuItem.CheckState = CheckState.Checked;
                 this.gridToolStripMenuItem1.CheckState = CheckState.Checked;
                 EnableGrid();
@@ -793,6 +801,7 @@ namespace Game_of_Life
         {
             if (gridToolStripMenuItem1.Checked == true)
             {
+                isGridVisible=false;
                 this.gridToolStripMenuItem1.CheckState = CheckState.Unchecked;
                 this.gridToolStripMenuItem.CheckState = CheckState.Unchecked;
                 DisableGrid();
@@ -800,6 +809,7 @@ namespace Game_of_Life
 
             else if (gridToolStripMenuItem1.Checked == false)
             {
+                isGridVisible = true;
                 this.gridToolStripMenuItem1.CheckState = CheckState.Checked;
                 this.gridToolStripMenuItem.CheckState = CheckState.Checked;
                 EnableGrid();
