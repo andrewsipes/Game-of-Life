@@ -107,13 +107,13 @@ namespace Game_of_Life
                 return UniverseCellHeight;
             }
 
-            //Gets Width of Window
+            ////Gets Width of Window
             public int GetClientSizeWidth()
             {
                 return this.Size.Width;
             }
             
-            //Gets Height of Window
+            ////Gets Height of Window
             public int GetClientSizeHeight()
             {
                 return this.Size.Height;
@@ -337,7 +337,7 @@ namespace Game_of_Life
                         {
                             e.Graphics.DrawLine(gridPen10, 0, 0, graphicsPanel1.ClientSize.Width, 0);
                             e.Graphics.DrawLine(gridPen10, 0, 0, 0, graphicsPanel1.ClientSize.Height);
-                            e.Graphics.DrawLine(gridPen10, graphicsPanel1.ClientSize.Width, 0, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
+                            e.Graphics.DrawLine(gridPen10, graphicsPanel1.ClientSize.Width-2, 0, graphicsPanel1.ClientSize.Width-2, graphicsPanel1.ClientSize.Height);
                             e.Graphics.DrawLine(gridPen10, 0, graphicsPanel1.ClientSize.Height, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
                         }
 
