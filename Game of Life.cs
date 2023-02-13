@@ -998,13 +998,31 @@ namespace Game_of_Life
             int OriginalRowLength = array.GetLength(0);
             int OriginalColumnLength = array.GetLength(1);
 
-            for (int i = 0; i < OriginalRowLength; i++)
+            //if Sizing down
+            if (x < OriginalRowLength || y < OriginalColumnLength)
             {
-                for (int j = 0; j < OriginalColumnLength; j++)
+                for (int i = 0; i < x; i++)
                 {
-                    ReplacementArray[i, j] = array[i, j];
+                    for (int j = 0; j < y; j++)
+                    {
+                        ReplacementArray[i, j] = array[i, j];
+                    }
+                }
+
+            }
+
+            //if Sizing Up
+            else
+            {
+                for (int i = 0; i < OriginalRowLength; i++)
+                {
+                    for (int j = 0; j < OriginalColumnLength; j++)
+                    {
+                        ReplacementArray[i, j] = array[i, j];
+                    }
                 }
             }
+
 
             return ReplacementArray;
         }
