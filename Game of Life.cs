@@ -20,9 +20,9 @@ namespace Game_of_Life
             //DEFAULT PROPERTIES
 
             //Set default values for Cell Width, Height and Interval
-            private static int UniverseCellWidth = Properties.Settings.Default.CellWidth;
-            private static int UniverseCellHeight = Properties.Settings.Default.CellHeight;
-            private int TimerInterval = Properties.Settings.Default.TimerInterval;
+            private static int UniverseCellWidth = 30;
+            private static int UniverseCellHeight = 30;
+            private int TimerInterval = 100;            
 
             //Default Drawing Colors
             private Color gridColor = Color.Black;
@@ -35,7 +35,7 @@ namespace Game_of_Life
 
         //GETTERS AND SETTERS
 
-        //Sets UniverseCellWidth
+            //Sets UniverseCellWidth
             public void SetUniverseCellWidth(int _UniverseCellWidth)
             {
                 UniverseCellWidth = _UniverseCellWidth;
@@ -180,9 +180,6 @@ namespace Game_of_Life
                   
             InitializeComponent();
 
-            //Load Previous Settings
-            //LoadSavedProperties();
-
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
             timer.Tick += Timer_Tick;
@@ -191,20 +188,35 @@ namespace Game_of_Life
 
         }
 
+        private void GameOfLife_Load(object sender, EventArgs e)
+        {
+            LoadSavedProperties();
+
+        }
+
+        //Saves current properties
+        private void GameOfLife_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SaveCurrentProperties();
+        }
+
         //Used to Load previously saved Properties
         private void LoadSavedProperties()
         {
+            //Set Settings based on Settings File (last save)
             SetBackColor(Properties.Settings.Default.BackColor);
             SetCellColor(Properties.Settings.Default.CellColor);
             SetGridColor(Properties.Settings.Default.GridColor);
             SetGridColor10(Properties.Settings.Default.GridColor10);
             SetTimerInterval(Properties.Settings.Default.TimerInterval);
-            SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
-            SetUniverseCellWidth(Properties.Settings.Default.CellWidth);    
+
+            //Resize Array according to saved values
+            universe = ResizeArray(universe, Properties.Settings.Default.CellWidth, Properties.Settings.Default.CellHeight);
+             
         }
 
-        //Saves current properties
-        private void GameOfLife_FormClosed(object sender, FormClosedEventArgs e)
+        //Used to Save Current Properties
+        private void SaveCurrentProperties()
         {
             //We will use getters to store the current vaules into the properties
             Properties.Settings.Default.BackColor = GetBackColor();
@@ -219,6 +231,8 @@ namespace Game_of_Life
             Properties.Settings.Default.Save();
         }
 
+
+       
         // Calculate the next generation of cells
         private void NextGeneration()
         {
@@ -1044,12 +1058,6 @@ namespace Game_of_Life
                 graphicsPanel1.Invalidate();
             }
         }
-
-        private void GameOfLife_Load(object sender, EventArgs e)
-        {
-            LoadSavedProperties();
-        }
-
 
         //Saves the current cell state to a .cells file
         private void SaveFile()
