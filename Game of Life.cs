@@ -92,7 +92,7 @@ namespace Game_of_Life
             //Gets TimerInterval
             public int GetTimerInterval()
             {
-                        return TimerInterval;
+                return TimerInterval;
             }
 
             //Get UniverseCellWidth
@@ -176,11 +176,10 @@ namespace Game_of_Life
 
         public GameOfLife()
         {
-            InitializeComponent();
-
             //Load Previous Settings
-            SavedProperties();        
-
+            SavedProperties();
+            InitializeComponent();
+                
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
             timer.Tick += Timer_Tick;
@@ -194,8 +193,8 @@ namespace Game_of_Life
             SetCellColor(Properties.Settings.Default.CellColor);
             SetGridColor(Properties.Settings.Default.GridColor);
             SetGridColor10(Properties.Settings.Default.GridColor10);
-            SetUniverseCellWidth(Properties.Settings.Default.UniverseCellWidth);
-            SetUniverseCellHeight(Properties.Settings.Default.UniverseCellHeight);
+            SetUniverseCellWidth(Properties.Settings.Default.CellWidth);
+            SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
             SetTimerInterval(Properties.Settings.Default.TimerInterval);
         }
 
@@ -207,8 +206,8 @@ namespace Game_of_Life
             Properties.Settings.Default.CellColor = GetCellColor();
             Properties.Settings.Default.GridColor = GetGridColor();
             Properties.Settings.Default.GridColor10 = GetGridColor10();
-            Properties.Settings.Default.UniverseCellWidth = GetUniverseCellWidth();
-            Properties.Settings.Default.UniverseCellHeight = GetUniverseCellHeight();
+            Properties.Settings.Default.CellWidth = GetUniverseCellWidth();
+            Properties.Settings.Default.CellHeight = GetUniverseCellHeight();
             Properties.Settings.Default.TimerInterval = GetTimerInterval();
 
             //Saves the values
@@ -908,7 +907,6 @@ namespace Game_of_Life
         //Context Menu Tool strip option that toggles the neighbor count on the cells
         private void neighborCountToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
 
             if (neighborCountToolStripMenuItem1.Checked == true)
             {

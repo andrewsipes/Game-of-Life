@@ -14,10 +14,10 @@
     <Setting Name="GridColor10" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>
     </Setting>
-    <Setting Name="UniverseCellWidth" Type="System.Int32" Scope="User">
+    <Setting Name="CellWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30</Value>
     </Setting>
-    <Setting Name="UniverseCellHeight" Type="System.Int32" Scope="User">
+    <Setting Name="CellHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="TimerInterval" Type="System.Int32" Scope="User">

@@ -74,24 +74,24 @@ namespace Game_of_Life.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int UniverseCellWidth {
+        public int CellWidth {
             get {
-                return ((int)(this["UniverseCellWidth"]));
+                return ((int)(this["CellWidth"]));
             }
             set {
-                this["UniverseCellWidth"] = value;
+                this["CellWidth"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int UniverseCellHeight {
+        public int CellHeight {
             get {
-                return ((int)(this["UniverseCellHeight"]));
+                return ((int)(this["CellHeight"]));
             }
             set {
-                this["UniverseCellHeight"] = value;
+                this["CellHeight"] = value;
             }
         }
         
