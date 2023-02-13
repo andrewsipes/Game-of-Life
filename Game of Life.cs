@@ -187,14 +187,15 @@ namespace Game_of_Life
             this.ToolStripStatusIntervalLabel.Text = "Interval: " + TimerInterval.ToString();
 
         }
-
+        
+        //Will load the Saved Properties when form loads
         private void GameOfLife_Load(object sender, EventArgs e)
         {
             LoadSavedProperties();
 
         }
 
-        //Saves current properties
+        //Will Save the current properties when form closes
         private void GameOfLife_FormClosed(object sender, FormClosedEventArgs e)
         {
             SaveCurrentProperties();
@@ -230,9 +231,7 @@ namespace Game_of_Life
             //Saves the values
             Properties.Settings.Default.Save();
         }
-
-
-       
+    
         // Calculate the next generation of cells
         private void NextGeneration()
         {
@@ -956,8 +955,8 @@ namespace Game_of_Life
             OptionsDialog dlg = new OptionsDialog();
 
             //Retrieves the current values for each textbox
-            dlg.numericUpDownWidth.Value = GetUniverseCellWidth();
-            dlg.numericUpDownHeight.Value = GetUniverseCellHeight();
+            dlg.numericUpDownWidth.Value = universe.GetLength(0);
+            dlg.numericUpDownHeight.Value = universe.GetLength(1);
             dlg.numericUpDownInterval.Value = GetTimerInterval();
 
             //If user presses okay, We will update the parameters
