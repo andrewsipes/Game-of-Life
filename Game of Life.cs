@@ -16,12 +16,12 @@ namespace Game_of_Life
 {
     public partial class GameOfLife : Form
     {
-        //DEFAULT PROPERTIES
+            //DEFAULT PROPERTIES
 
-        //Set default values for Cell Width, Height and Interval
-        //private static int UniverseCellWidth;
-        //private static int UniverseCellHeight;
-        private int TimerInterval = 100;
+            //Set default values for Cell Width, Height and Interval
+            private static int UniverseCellWidth = Properties.Settings.Default.CellWidth;
+            private static int UniverseCellHeight = Properties.Settings.Default.CellHeight;
+            private int TimerInterval = Properties.Settings.Default.TimerInterval;
 
             //Default Drawing Colors
             private Color gridColor = Color.Black;
@@ -34,22 +34,22 @@ namespace Game_of_Life
 
         //GETTERS AND SETTERS
 
-            //Sets UniverseCellWidth
-            //public void SetUniverseCellWidth(int _UniverseCellWidth)
-            //{
-            //    UniverseCellWidth = _UniverseCellWidth;
-            //}
+        //Sets UniverseCellWidth
+            public void SetUniverseCellWidth(int _UniverseCellWidth)
+            {
+                UniverseCellWidth = _UniverseCellWidth;
+            }
 
             //Sets UniverseCellHeight
-            //public void SetUniverseCellHeight(int _UniverseCellHeight)
-            //{
-            //    UniverseCellHeight = _UniverseCellHeight;
-            //}
+            public void SetUniverseCellHeight(int _UniverseCellHeight)
+            {
+                UniverseCellHeight = _UniverseCellHeight;
+            }
 
-             //Sets TimerInterval
+            //Sets TimerInterval
             public void SetTimerInterval(int _TimerInterval)
             {
-                TimerInterval = _TimerInterval;
+                 TimerInterval = _TimerInterval;
             }
 
             //Set cellColor
@@ -89,25 +89,25 @@ namespace Game_of_Life
                     tempGridColor10 = _color;
              }
 
-            ////Gets TimerInterval
+            //Gets TimerInterval
             public int GetTimerInterval()
             {
                 return TimerInterval;
             }
 
             //Get UniverseCellWidth
-            //public int GetUniverseCellWidth()
-            //{
-            //    return UniverseCellWidth;
-            //}
+            public int GetUniverseCellWidth()
+            {
+                return UniverseCellWidth;
+            }
 
             //Get UniverseCellHeight
-            //public int GetUniverseCellHeight()
-            //{
-            //    return UniverseCellHeight;
-            //}
+            public int GetUniverseCellHeight()
+            {
+                return UniverseCellHeight;
+            }
 
-            ////Gets Width of Window
+                //Gets Width of Window
             public int GetClientSizeWidth()
             {
                 return this.Size.Width;
@@ -163,10 +163,10 @@ namespace Game_of_Life
 
 
         // The universe array
-        bool [,] universe = new bool[Properties.Settings.Default.CellWidth, Properties.Settings.Default.CellHeight];
+        bool [,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
 
         //scratchpad array
-        bool[,] scratchpad = new bool[Properties.Settings.Default.CellWidth, Properties.Settings.Default.CellHeight];
+        bool[,] scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
 
         // The Timer class
         Timer timer = new Timer();
@@ -176,25 +176,30 @@ namespace Game_of_Life
 
         public GameOfLife()
         {
-            //Load Previous Settings
-            SavedProperties();
-       
+                  
             InitializeComponent();
-                
+
+            //Load Previous Settings
+            LoadSavedProperties();
+
             // Setup the timer
-            timer.Interval = GetTimerInterval(); // milliseconds
+            timer.Interval = Properties.Settings.Default.TimerInterval; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
+            this.ToolStripStatusIntervalLabel.Text = "Interval: " + timer.Interval.ToString();
+
         }
 
         //Used to Load previously saved Properties
-        private void SavedProperties()
+        private void LoadSavedProperties()
         {
             SetBackColor(Properties.Settings.Default.BackColor);
             SetCellColor(Properties.Settings.Default.CellColor);
             SetGridColor(Properties.Settings.Default.GridColor);
             SetGridColor10(Properties.Settings.Default.GridColor10);
             SetTimerInterval(Properties.Settings.Default.TimerInterval);
+            SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
+            SetUniverseCellWidth(Properties.Settings.Default.CellWidth);    
         }
 
         //Saves current properties
@@ -206,6 +211,8 @@ namespace Game_of_Life
             Properties.Settings.Default.GridColor = GetGridColor();
             Properties.Settings.Default.GridColor10 = GetGridColor10();
             Properties.Settings.Default.TimerInterval = GetTimerInterval();
+            Properties.Settings.Default.CellWidth = GetUniverseCellWidth();
+            Properties.Settings.Default.CellHeight = GetUniverseCellHeight();
 
             //Saves the values
             Properties.Settings.Default.Save();
@@ -448,8 +455,9 @@ namespace Game_of_Life
            
             }
 
-            //Update AliveCountLabel to correct # of cells alive
-            ToolStripStatusAliveLabel.Text = "Alive: " + aliveCount.ToString();
+            //Update Labels
+            this.ToolStripStatusAliveLabel.Text = "Alive: " + aliveCount.ToString();
+            this.ToolStripStatusIntervalLabel.Text = "Interval: " + GetTimerInterval().ToString();
 
 
             // Font Style for Hud
@@ -933,59 +941,27 @@ namespace Game_of_Life
             OptionsDialog dlg = new OptionsDialog();
 
             //Retrieves the current values for each textbox
-            dlg.numericUpDownWidth.Value = Properties.Settings.Default.CellWidth;
-            dlg.numericUpDownHeight.Value = Properties.Settings.Default.CellHeight;
-            dlg.numericUpDownInterval.Value = Properties.Settings.Default.TimerInterval;
+            dlg.numericUpDownWidth.Value = GetUniverseCellWidth();
+            dlg.numericUpDownHeight.Value = GetUniverseCellHeight();
+            dlg.numericUpDownInterval.Value = GetTimerInterval();
 
             //If user presses okay, We will update the parameters
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 //Update Options according to dialog box              
-                Properties.Settings.Default.CellWidth = (int)dlg.numericUpDownWidth.Value;             
-                Properties.Settings.Default.CellHeight = (int)dlg.numericUpDownHeight.Value;
-                Properties.Settings.Default.TimerInterval =(int)dlg.numericUpDownInterval.Value;
+                SetUniverseCellWidth((int)dlg.numericUpDownWidth.Value);
+                SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
+                SetTimerInterval((int)dlg.numericUpDownInterval.Value);
 
                 //Store WindowSizeProperties
                 int width = GetClientSizeWidth();
                 int Height = GetClientSizeHeight();
 
-                //Store Current Color Properties
-                Color currentCellColor = GetCellColor();
-                Color currentGridColor = GetGridColor();
-                Color currentGridColor10 = GetGridColor10();
-                Color currentBackColor = GetBackColor();
-                bool currentCount = isTorodial;
-
                 //Copy Contents of current Universe into another Universe with the new size
-                bool[,] newUniverse = ResizeArray(universe, Properties.Settings.Default.CellWidth, Properties.Settings.Default.CellHeight);
-               
-                //Create a new game of life
-                GameOfLife gameOfLife = new GameOfLife();
-
-                //Copy the contents of the Universe we created into the new game of life universe so it mimics the old universe
-                gameOfLife.universe = newUniverse;
-                                             
-                //show the new game of life
-                gameOfLife.Show();
-
-                //Set window size to appropriate size
-                gameOfLife.Size = new Size(width, Height);
-
-                //Copy the Color properties to the form
-                gameOfLife.SetCellColor(currentCellColor);
-                gameOfLife.SetGridColor(currentGridColor);
-                gameOfLife.SetGridColor10(currentGridColor10);
-                gameOfLife.SetBackColor(currentBackColor);
-                gameOfLife.isTorodial = currentCount;
-
-                gameOfLife.graphicsPanel1.BackColor = gameOfLife.GetBackColor();
-                gameOfLife.graphicsPanel1.Invalidate();
-
-                //Prevents disposal
-                this.Dispose(false);
-
-                //Update the Interval label
-                gameOfLife.ToolStripStatusIntervalLabel.Text = "Interval: " + Properties.Settings.Default.TimerInterval.ToString();
+                universe = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
+                scratchpad = ResizeArray(scratchpad, GetUniverseCellWidth(), GetUniverseCellHeight());
+            
+                graphicsPanel1.Invalidate();
                 dlg.Close();
             }
 
@@ -1068,7 +1044,10 @@ namespace Game_of_Life
             }
         }
 
-
+        private void GameOfLife_Load(object sender, EventArgs e)
+        {
+            //LoadSavedProperties();
+        }
     }
 
     }

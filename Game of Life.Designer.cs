@@ -473,8 +473,7 @@ namespace Game_of_Life
             // 
             this.ToolStripStatusIntervalLabel.Name = "ToolStripStatusIntervalLabel";
             this.ToolStripStatusIntervalLabel.Size = new System.Drawing.Size(52, 17);
-            this.ToolStripStatusIntervalLabel.Text = "Interval: " + TimerInterval.ToString() ;
-            
+            this.ToolStripStatusIntervalLabel.Text = "Interval: " ;
             // 
             // ToolStripStatusAliveLabel
             // 
@@ -599,6 +598,7 @@ namespace Game_of_Life
             this.Name = "GameOfLife";
             this.Text = "Game of Life";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameOfLife_FormClosed);
+            this.Load += new System.EventHandler(this.GameOfLife_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
