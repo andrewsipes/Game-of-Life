@@ -17,6 +17,7 @@ namespace Game_of_Life
     public partial class GameOfLife : Form
     {
         //DEFAULT PROPERTIES
+
             //Set default values for Cell Width, Height and Interval
             private static int UniverseCellWidth = 30;
             private static int UniverseCellHeight = 30;
@@ -29,7 +30,6 @@ namespace Game_of_Life
             private Color backColor = Color.White;
             private Color tempGridColor;
             private Color tempGridColor10;
-
 
              
         //GETTERS AND SETTERS
@@ -85,15 +85,15 @@ namespace Game_of_Life
 
             //Set tempgridColor10
             public void SetTempGridColor10(Color _color)
-                {
+             {
                     tempGridColor10 = _color;
-                }
+             }
 
             //Gets TimerInterval
             public int GetTimerInterval()
-                        {
-                            return TimerInterval;
-                        }
+            {
+                        return TimerInterval;
+            }
 
             //Get UniverseCellWidth
             public int GetUniverseCellWidth()
@@ -178,10 +178,41 @@ namespace Game_of_Life
         {
             InitializeComponent();
 
+            //Load Previous Settings
+            SavedProperties();        
+
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
+        }
+
+        //Used to Load previously saved Properties
+        private void SavedProperties()
+        {
+            SetBackColor(Properties.Settings.Default.BackColor);
+            SetCellColor(Properties.Settings.Default.CellColor);
+            SetGridColor(Properties.Settings.Default.GridColor);
+            SetGridColor10(Properties.Settings.Default.GridColor10);
+            SetUniverseCellWidth(Properties.Settings.Default.UniverseCellWidth);
+            SetUniverseCellHeight(Properties.Settings.Default.UniverseCellHeight);
+            SetTimerInterval(Properties.Settings.Default.TimerInterval);
+        }
+
+        //Saves current properties
+        private void GameOfLife_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //We will use getters to store the current vaules into the properties
+            Properties.Settings.Default.BackColor = GetBackColor();
+            Properties.Settings.Default.CellColor = GetCellColor();
+            Properties.Settings.Default.GridColor = GetGridColor();
+            Properties.Settings.Default.GridColor10 = GetGridColor10();
+            Properties.Settings.Default.UniverseCellWidth = GetUniverseCellWidth();
+            Properties.Settings.Default.UniverseCellHeight = GetUniverseCellHeight();
+            Properties.Settings.Default.TimerInterval = GetTimerInterval();
+
+            //Saves the values
+            Properties.Settings.Default.Save();
         }
 
         // Calculate the next generation of cells
@@ -1020,6 +1051,8 @@ namespace Game_of_Life
                 graphicsPanel1.Invalidate();
             }
         }
+
+     
     }
 
     }
