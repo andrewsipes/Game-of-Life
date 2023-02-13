@@ -472,8 +472,9 @@ namespace Game_of_Life
             // ToolStripStatusIntervalLabel
             // 
             this.ToolStripStatusIntervalLabel.Name = "ToolStripStatusIntervalLabel";
-            this.ToolStripStatusIntervalLabel.Size = new System.Drawing.Size(70, 17);
-            this.ToolStripStatusIntervalLabel.Text = "Interval: 100";
+            this.ToolStripStatusIntervalLabel.Size = new System.Drawing.Size(52, 17);
+            this.ToolStripStatusIntervalLabel.Text = "Interval: " + TimerInterval.ToString() ;
+            
             // 
             // ToolStripStatusAliveLabel
             // 
