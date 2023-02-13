@@ -20,8 +20,8 @@ namespace Game_of_Life
             //DEFAULT PROPERTIES
 
             //Set default values for Cell Width, Height and Interval
-            private static int UniverseCellWidth = 30;
-            private static int UniverseCellHeight = 30;
+            private static int UniverseCellWidth = Properties.Settings.Default.CellWidth;
+            private static int UniverseCellHeight = Properties.Settings.Default.CellHeight;
             private int TimerInterval = 100;            
 
             //Default Drawing Colors
@@ -177,8 +177,9 @@ namespace Game_of_Life
 
         public GameOfLife()
         {
-                  
+           
             InitializeComponent();
+            //LoadSavedProperties();
 
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
@@ -210,9 +211,11 @@ namespace Game_of_Life
             SetGridColor(Properties.Settings.Default.GridColor);
             SetGridColor10(Properties.Settings.Default.GridColor10);
             SetTimerInterval(Properties.Settings.Default.TimerInterval);
+            SetUniverseCellWidth(Properties.Settings.Default.CellWidth);
+            SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
+           
 
-            //Resize Array according to saved values
-            universe = ResizeArray(universe, Properties.Settings.Default.CellWidth, Properties.Settings.Default.CellHeight);
+            graphicsPanel1.Invalidate();
              
         }
 
@@ -964,7 +967,9 @@ namespace Game_of_Life
             {
                 //Update Options according to dialog box              
                 SetUniverseCellWidth((int)dlg.numericUpDownWidth.Value);
+                Properties.Settings.Default.CellWidth = (int)dlg.numericUpDownWidth.Value;
                 SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
+                Properties.Settings.Default.CellHeight = (int)dlg.numericUpDownWidth.Value;
                 SetTimerInterval((int)dlg.numericUpDownInterval.Value);
 
                 //Store WindowSizeProperties
