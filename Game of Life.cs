@@ -193,13 +193,6 @@ namespace Game_of_Life
 
         }
 
-        //Will load the Saved Properties when form loads
-        private void GameOfLife_Load(object sender, EventArgs e)
-        {
-            //LoadSavedProperties();
-
-        }
-
         //Will Save the current properties when form closes
         private void GameOfLife_FormClosed(object sender, FormClosedEventArgs e)
         {
