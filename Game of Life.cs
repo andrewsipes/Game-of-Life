@@ -1228,15 +1228,49 @@ namespace Game_of_Life
             }
         }
 
-
+        //Tool Strip Open Button - Opens a cells file and applies it to the grid
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             OpenFile();
         }
 
+        //Menu Strip Open - Opens a cells file and applies it to the grid
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFile();
+        }
+
+        //Reset button, resets to default settings in the settings file
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+
+            //Load saved Values
+            LoadSavedProperties();
+
+            //Resize arrays based on settings
+            universe = ResizeArray(universe, UniverseCellWidth, UniverseCellHeight);
+            scratchpad = ResizeArray(scratchpad, UniverseCellWidth, UniverseCellHeight);
+
+            //Redraw the panel with correct values
+            graphicsPanel1.Invalidate();
+            
+        }
+
+        //Reload button, reloads cached settings (last close)
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+
+            //Load Saved Values
+            LoadSavedProperties();
+
+            //Resize arrays based on settings
+            universe = ResizeArray(universe, UniverseCellWidth, UniverseCellHeight);
+            scratchpad = ResizeArray(scratchpad, UniverseCellWidth, UniverseCellHeight);
+
+            //Redraw the panel with correct values
+            graphicsPanel1.Invalidate();
         }
     }
 }
