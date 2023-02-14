@@ -17,154 +17,154 @@ namespace Game_of_Life
 {
     public partial class GameOfLife : Form
     {
-            //DEFAULT PROPERTIES
+        //DEFAULT PROPERTIES
 
-            //Set default values for Cell Width, Height and Interval
-            private static int UniverseCellWidth = Properties.Settings.Default.CellWidth;
-            private static int UniverseCellHeight = Properties.Settings.Default.CellHeight;
-            private int TimerInterval = 100;            
+        //Set default values for Cell Width, Height and Interval
+        private static int UniverseCellWidth = Properties.Settings.Default.CellWidth;
+        private static int UniverseCellHeight = Properties.Settings.Default.CellHeight;
+        private int TimerInterval = 100;
 
-            //Default Drawing Colors
-            private Color gridColor = Color.Black;
-            private Color cellColor = Color.Gray;
-            private Color gridColor10 = Color.Black;
-            private Color backColor = Color.White;
-            private Color tempGridColor;
-            private Color tempGridColor10;
+        //Default Drawing Colors
+        private Color gridColor = Color.Black;
+        private Color cellColor = Color.Gray;
+        private Color gridColor10 = Color.Black;
+        private Color backColor = Color.White;
+        private Color tempGridColor;
+        private Color tempGridColor10;
 
 
         //GETTERS AND SETTERS
 
-            //Sets UniverseCellWidth
-            public void SetUniverseCellWidth(int _UniverseCellWidth)
-            {
-                UniverseCellWidth = _UniverseCellWidth;
-            }
+        //Sets UniverseCellWidth
+        public void SetUniverseCellWidth(int _UniverseCellWidth)
+        {
+            UniverseCellWidth = _UniverseCellWidth;
+        }
 
-            //Sets UniverseCellHeight
-            public void SetUniverseCellHeight(int _UniverseCellHeight)
-            {
-                UniverseCellHeight = _UniverseCellHeight;
-            }
+        //Sets UniverseCellHeight
+        public void SetUniverseCellHeight(int _UniverseCellHeight)
+        {
+            UniverseCellHeight = _UniverseCellHeight;
+        }
 
-            //Sets TimerInterval
-            public void SetTimerInterval(int _TimerInterval)
-            {
-                 TimerInterval = _TimerInterval;
-            }
+        //Sets TimerInterval
+        public void SetTimerInterval(int _TimerInterval)
+        {
+            TimerInterval = _TimerInterval;
+        }
 
-            //Set cellColor
-            public void SetCellColor(Color _color)
-                {
-                    cellColor = _color;
-                }
+        //Set cellColor
+        public void SetCellColor(Color _color)
+        {
+            cellColor = _color;
+        }
 
-            //Set gridColor
-            public void SetGridColor(Color _color)
-            {
-                gridColor = _color;
-            }
+        //Set gridColor
+        public void SetGridColor(Color _color)
+        {
+            gridColor = _color;
+        }
 
-            //Set gridColor10
-            public void SetGridColor10(Color _color)
-            {
-                gridColor10 = _color;
-            }
+        //Set gridColor10
+        public void SetGridColor10(Color _color)
+        {
+            gridColor10 = _color;
+        }
 
-            //Set backColor
-            public void SetBackColor(Color _color)
-            {
-                backColor = _color;
-                
-            }
+        //Set backColor
+        public void SetBackColor(Color _color)
+        {
+            backColor = _color;
 
-            //Set tempgridColor10
-            public void SetTempGridColor(Color _color)
-            {
-                tempGridColor = _color;
-            }
+        }
 
-            //Set tempgridColor10
-            public void SetTempGridColor10(Color _color)
-             {
-                    tempGridColor10 = _color;
-             }
+        //Set tempgridColor10
+        public void SetTempGridColor(Color _color)
+        {
+            tempGridColor = _color;
+        }
 
-            //Gets TimerInterval
-            public int GetTimerInterval()
-            {
-                return TimerInterval;
-            }
+        //Set tempgridColor10
+        public void SetTempGridColor10(Color _color)
+        {
+            tempGridColor10 = _color;
+        }
 
-            //Get UniverseCellWidth
-            public int GetUniverseCellWidth()
-            {
-                return UniverseCellWidth;
-            }
+        //Gets TimerInterval
+        public int GetTimerInterval()
+        {
+            return TimerInterval;
+        }
 
-            //Get UniverseCellHeight
-            public int GetUniverseCellHeight()
-            {
-                return UniverseCellHeight;
-            }
+        //Get UniverseCellWidth
+        public int GetUniverseCellWidth()
+        {
+            return UniverseCellWidth;
+        }
 
-                //Gets Width of Window
-            public int GetClientSizeWidth()
-            {
-                return this.Size.Width;
-            }
-            
-            //Gets Height of Window
-            public int GetClientSizeHeight()
-            {
-                return this.Size.Height;
-            }
+        //Get UniverseCellHeight
+        public int GetUniverseCellHeight()
+        {
+            return UniverseCellHeight;
+        }
 
-            //Get CellColor
-            public Color GetCellColor()
-            {
-                return cellColor;
-            }
+        //Gets Width of Window
+        public int GetClientSizeWidth()
+        {
+            return this.Size.Width;
+        }
 
-            //Get GridColor
-            public Color GetGridColor()
-            {
-                return gridColor;
-            }
+        //Gets Height of Window
+        public int GetClientSizeHeight()
+        {
+            return this.Size.Height;
+        }
 
-            //Get GridColor10
-            public Color GetGridColor10()
-            {
-                return gridColor10;
-            }
+        //Get CellColor
+        public Color GetCellColor()
+        {
+            return cellColor;
+        }
 
-            //Get CellColor
-            public Color GetBackColor()
-            {
-                return backColor;
-            }
+        //Get GridColor
+        public Color GetGridColor()
+        {
+            return gridColor;
+        }
 
-            //Get tempgridColor
-            public Color GetTempGridColor()
-            {
-                return tempGridColor;
-            }
+        //Get GridColor10
+        public Color GetGridColor10()
+        {
+            return gridColor10;
+        }
 
-            //Get tempgridColor10
-            public Color GetTempGridColor10()
-            { 
-                return tempGridColor10;
-            }
+        //Get CellColor
+        public Color GetBackColor()
+        {
+            return backColor;
+        }
+
+        //Get tempgridColor
+        public Color GetTempGridColor()
+        {
+            return tempGridColor;
+        }
+
+        //Get tempgridColor10
+        public Color GetTempGridColor10()
+        {
+            return tempGridColor10;
+        }
 
         //BOOLS
-            bool isNeighborCountVisible = true;
-            bool isHUDVisible = true;
-            bool isTorodial = true;
-            bool isGridVisible = true;
+        bool isNeighborCountVisible = true;
+        bool isHUDVisible = true;
+        bool isTorodial = true;
+        bool isGridVisible = true;
 
 
         // The universe array
-        bool [,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
+        bool[,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
 
         //scratchpad array
         bool[,] scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
@@ -177,9 +177,8 @@ namespace Game_of_Life
 
         public GameOfLife()
         {
-           
+
             InitializeComponent();
-            //LoadSavedProperties();
 
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
@@ -188,7 +187,7 @@ namespace Game_of_Life
             this.ToolStripStatusIntervalLabel.Text = "Interval: " + TimerInterval.ToString();
 
         }
-        
+
         //Will load the Saved Properties when form loads
         private void GameOfLife_Load(object sender, EventArgs e)
         {
@@ -213,10 +212,9 @@ namespace Game_of_Life
             SetTimerInterval(Properties.Settings.Default.TimerInterval);
             SetUniverseCellWidth(Properties.Settings.Default.CellWidth);
             SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
-           
 
             graphicsPanel1.Invalidate();
-             
+
         }
 
         //Used to Save Current Properties
@@ -234,7 +232,7 @@ namespace Game_of_Life
             //Saves the values
             Properties.Settings.Default.Save();
         }
-    
+
         // Calculate the next generation of cells
         private void NextGeneration()
         {
@@ -388,7 +386,7 @@ namespace Game_of_Life
                         {
                             e.Graphics.DrawLine(gridPen10, 0, 0, graphicsPanel1.ClientSize.Width, 0);
                             e.Graphics.DrawLine(gridPen10, 0, 0, 0, graphicsPanel1.ClientSize.Height);
-                            e.Graphics.DrawLine(gridPen10, graphicsPanel1.ClientSize.Width-2, 0, graphicsPanel1.ClientSize.Width-2, graphicsPanel1.ClientSize.Height);
+                            e.Graphics.DrawLine(gridPen10, graphicsPanel1.ClientSize.Width - 2, 0, graphicsPanel1.ClientSize.Width - 2, graphicsPanel1.ClientSize.Height);
                             e.Graphics.DrawLine(gridPen10, 0, graphicsPanel1.ClientSize.Height, graphicsPanel1.ClientSize.Width, graphicsPanel1.ClientSize.Height);
                         }
 
@@ -404,21 +402,21 @@ namespace Game_of_Life
                             e.Graphics.DrawLine(gridPen10, cellRect.X, cellRect.Y, graphicsPanel1.ClientSize.Width, cellRect.Y);
                         }
                     }
-                  
+
 
                     //CALCULATE NEIGHBORS - Will calculate based on which check box option is checked
 
                     //Finite
                     if (isTorodial == true)
-                        {
-                            neighbors = CountNeighborsToroidal(x, y);
-                        }
+                    {
+                        neighbors = CountNeighborsToroidal(x, y);
+                    }
 
-                        //Torodial
-                        else
-                        {
-                            neighbors = CountNeighborsFinite(x, y);
-                        }
+                    //Torodial
+                    else
+                    {
+                        neighbors = CountNeighborsFinite(x, y);
+                    }
 
 
                     // TOGGLE NEIGHBOR COUNT VIEW ON THE CELLS
@@ -460,7 +458,7 @@ namespace Game_of_Life
 
 
                     // Here we will count the cells that are alive for display
-                    if (universe[x,y] == true)
+                    if (universe[x, y] == true)
                     {
                         aliveCount++;
 
@@ -469,7 +467,7 @@ namespace Game_of_Life
 
                 }
 
-           
+
             }
 
             //Update Labels
@@ -685,10 +683,10 @@ namespace Game_of_Life
                 this.finiteToolStripMenuItem.CheckState = CheckState.Unchecked;
                 graphicsPanel1.Invalidate();
             }
-        
+
             else if (this.toroidalToolStripMenuItem.Checked == true)
             {
-                isTorodial = false; 
+                isTorodial = false;
                 this.toroidalToolStripMenuItem.CheckState = CheckState.Unchecked;
                 this.finiteToolStripMenuItem.CheckState = CheckState.Checked;
                 graphicsPanel1.Invalidate();
@@ -716,7 +714,7 @@ namespace Game_of_Life
                 graphicsPanel1.Invalidate();
             }
         }
-        
+
 
         // New button in the menu button stip that will clear the universe
         private void newToolStripButton_Click(object sender, EventArgs e)
@@ -855,7 +853,7 @@ namespace Game_of_Life
             tempGridColor = GetGridColor();
             tempGridColor10 = GetGridColor10();
             gridColor = Color.Transparent;
-            gridColor10 = Color.Transparent;          
+            gridColor10 = Color.Transparent;
             graphicsPanel1.Invalidate();
         }
 
@@ -891,7 +889,7 @@ namespace Game_of_Life
         {
             if (gridToolStripMenuItem1.Checked == true)
             {
-                isGridVisible=false;
+                isGridVisible = false;
                 this.gridToolStripMenuItem1.CheckState = CheckState.Unchecked;
                 this.gridToolStripMenuItem.CheckState = CheckState.Unchecked;
                 DisableGrid();
@@ -937,7 +935,7 @@ namespace Game_of_Life
                 this.neighborCountToolStripMenuItem1.CheckState = CheckState.Unchecked;
                 this.neighborCountToolStripMenuItem.CheckState = CheckState.Unchecked;
                 graphicsPanel1.Invalidate();
-                
+
             }
 
             else if (neighborCountToolStripMenuItem1.Checked == false)
@@ -979,7 +977,7 @@ namespace Game_of_Life
                 //Copy Contents of current Universe into another Universe with the new size
                 universe = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
                 scratchpad = ResizeArray(scratchpad, GetUniverseCellWidth(), GetUniverseCellHeight());
-            
+
                 graphicsPanel1.Invalidate();
                 dlg.Close();
             }
@@ -987,7 +985,7 @@ namespace Game_of_Life
         }
 
         //ResizeArray - this will copy the contents from the old array into the new array so we no longer have sizing issues in the code.
-        bool [,] ResizeArray(bool[,] array, int x, int y)
+        bool[,] ResizeArray(bool[,] array, int x, int y)
         {
             bool[,] ReplacementArray = new bool[x, y];
             int OriginalRowLength = array.GetLength(0);
@@ -1095,7 +1093,7 @@ namespace Game_of_Life
 
                         if (universe[x, y] == true)
                         {
-                            currentRow += 0;
+                            currentRow += "O";
                         }
 
                         // Else if the universe[x,y] is dead then append '.' (period)
@@ -1122,13 +1120,131 @@ namespace Game_of_Life
         {
             SaveFile();
         }
-        
+
         //Tool Strip Save Button
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             SaveFile();
         }
-    }
 
+        //Opens file and applies the cell file to the universe
+        private void OpenFile()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                // Create a couple variables to calculate the width and height
+                // of the data in the file.
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then it is a comment
+                    // and should be ignored.
+
+                    string read = reader.Peek().ToString();
+                    if (read == "!")
+                    {
+                        reader.ReadLine().Skip(maxHeight);
+                        continue;
+                    }
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+
+                    if (read != "!")
+                    {
+                        maxHeight++;
+                    }
+
+                    // Get the length of the current row string
+                    // and adjust the maxWidth variable if necessary.
+
+                    maxWidth = row.Length;
+                }
+
+                //Corrects the MaxHeight, since we actually run through the loop an extra time.
+                maxHeight -= 1;
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                universe = ResizeArray(universe, maxWidth, maxHeight);
+                scratchpad = ResizeArray(universe, maxWidth, maxHeight);
+
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                //Reset Max height
+                maxHeight = 0;
+
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                  
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+                    char read = (char)reader.Peek();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row.Contains('!'))
+                    {
+                        row = reader.ReadLine();
+                        
+                    }
+
+                    // If the row is not a comment then 
+                    // it is a row of cells and needs to be iterated through.
+                    for (int xPos = 0; xPos < row.Length; xPos++)
+                    {
+                        // If row[xPos] is a 'O' (capital O) then
+                        // set the corresponding cell in the universe to alive.
+                        if (row[xPos] == 'O')
+                        {
+                            universe[xPos, maxHeight] = true;
+                        }
+
+                        // If row[xPos] is a '.' (period) then
+                        // set the corresponding cell in the universe to dead.
+
+                        if (row[xPos] == '.')
+                        {
+                            universe[xPos, maxHeight] = false;
+                        }
+                    }
+
+                    maxHeight++;
+                }
+
+                // Close the file.
+                reader.Close();
+
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+            OpenFile();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFile();
+        }
     }
+}
+
 
