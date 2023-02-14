@@ -1153,21 +1153,17 @@ namespace Game_of_Life
                     // If the row begins with '!' then it is a comment
                     // and should be ignored.
 
-                    string read = reader.Peek().ToString();
-                    if (read == "!")
+                    if (row.Contains("!"))
                     {
                         reader.ReadLine().Skip(maxHeight);
-                        continue;
+                        
                     }
 
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
-
-                    if (read != "!")
-                    {
-                        maxHeight++;
-                    }
-
+                                     
+                    maxHeight++;
+                    
                     // Get the length of the current row string
                     // and adjust the maxWidth variable if necessary.
 
@@ -1175,7 +1171,7 @@ namespace Game_of_Life
                 }
 
                 //Corrects the MaxHeight, since we actually run through the loop an extra time.
-                maxHeight -= 1;
+                //maxHeight -= 1;
 
                 // Resize the current universe and scratchPad
                 // to the width and height of the file calculated above.
@@ -1194,7 +1190,6 @@ namespace Game_of_Life
                   
                     // Read one row at a time.
                     string row = reader.ReadLine();
-                    char read = (char)reader.Peek();
 
                     // If the row begins with '!' then
                     // it is a comment and should be ignored.
