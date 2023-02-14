@@ -20,8 +20,8 @@ namespace Game_of_Life
         //DEFAULT PROPERTIES
 
         //Set default values for Cell Width, Height and Interval
-        private static int UniverseCellWidth = Properties.Settings.Default.CellWidth;
-        private static int UniverseCellHeight = Properties.Settings.Default.CellHeight;
+        private static int UniverseCellWidth = 30;
+        private static int UniverseCellHeight = 30;
         private int TimerInterval = 100;
 
         //Default Drawing Colors
@@ -162,23 +162,28 @@ namespace Game_of_Life
         bool isTorodial = true;
         bool isGridVisible = true;
 
-
-        // The universe array
-        bool[,] universe = new bool[UniverseCellWidth, UniverseCellHeight];
-
-        //scratchpad array
-        bool[,] scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
-
         // The Timer class
         Timer timer = new Timer();
 
         // Generation count
         int generations = 0;
 
+        //initialize bools
+        bool[,] universe;
+        bool[,] scratchpad;
+
         public GameOfLife()
         {
-
+            
             InitializeComponent();
+
+            // Loads the saved properties
+            LoadSavedProperties();
+
+
+            //Delcares the size of the arrays - This location allows us to use the saved properties for cellwidth and cellheight
+            universe = new bool[UniverseCellWidth, UniverseCellHeight];
+            scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
 
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
@@ -191,7 +196,7 @@ namespace Game_of_Life
         //Will load the Saved Properties when form loads
         private void GameOfLife_Load(object sender, EventArgs e)
         {
-            LoadSavedProperties();
+            //LoadSavedProperties();
 
         }
 
@@ -212,7 +217,6 @@ namespace Game_of_Life
             SetTimerInterval(Properties.Settings.Default.TimerInterval);
             SetUniverseCellWidth(Properties.Settings.Default.CellWidth);
             SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
-
             graphicsPanel1.Invalidate();
 
         }
@@ -228,6 +232,8 @@ namespace Game_of_Life
             Properties.Settings.Default.TimerInterval = GetTimerInterval();
             Properties.Settings.Default.CellWidth = GetUniverseCellWidth();
             Properties.Settings.Default.CellHeight = GetUniverseCellHeight();
+
+            int test = Properties.Settings.Default.CellWidth;
 
             //Saves the values
             Properties.Settings.Default.Save();
