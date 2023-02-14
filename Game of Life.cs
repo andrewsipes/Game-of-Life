@@ -180,7 +180,6 @@ namespace Game_of_Life
             // Loads the saved properties
             LoadSavedProperties();
 
-
             //Delcares the size of the arrays - This location allows us to use the saved properties for cellwidth and cellheight
             universe = new bool[UniverseCellWidth, UniverseCellHeight];
             scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
