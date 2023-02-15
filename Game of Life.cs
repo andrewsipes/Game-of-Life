@@ -1327,22 +1327,33 @@ namespace Game_of_Life
             //Create new SeedDialog
             SeedDialog dlg = new SeedDialog();
 
+            //Random Generator for Random Seed
+            Random randSeed = new Random();
+
             //Set Numeric Updown Min/Max
             dlg.SeedNumericUpDown.Minimum = 1;
             dlg.SeedNumericUpDown.Maximum = int.MaxValue;
 
-            //Randomize Seed Value for numeric updown
+            //Set SeedNumericUpDown Value to the current seed
             dlg.SeedNumericUpDown.Value = CurrentSeed;
 
             //Show the dialog
             dlg.ShowDialog();
+    
+            //if OK pressed, we will use the random number generator to randomize the universe values
+            if(dlg.ShowDialog() == DialogResult.OK)
+            {   //Random Generator for Random values in Universe(based on seed)
+                CurrentSeed = (int)dlg.SeedNumericUpDown.Value;
 
-            //if (dlg.RandomizeButton.)
-            //{
+                //Random Generator for Random values in Universe(based on seed)
+                Random rand = new Random(CurrentSeed);
 
-            //}
+                //Randomize values in the universe
+                Randomize(rand);
+            }
         }
     }
-}
+    }
+
 
 
