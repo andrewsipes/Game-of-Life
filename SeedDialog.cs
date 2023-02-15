@@ -17,6 +17,11 @@ namespace Game_of_Life
             InitializeComponent();
         }
 
-
+        private void RandomizeButton_Click(object sender, EventArgs e)
+        {
+            Random ran = new Random();
+            this.SeedNumericUpDown.Value = ran.Next(1, int.MaxValue);
+            this.Invalidate();
+        }
     }
 }

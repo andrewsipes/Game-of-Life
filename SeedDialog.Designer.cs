@@ -54,6 +54,7 @@
             // 
             // OKbutton
             // 
+            this.OKbutton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKbutton.Location = new System.Drawing.Point(55, 84);
             this.OKbutton.Name = "OKbutton";
             this.OKbutton.Size = new System.Drawing.Size(83, 25);
@@ -73,19 +74,20 @@
             // 
             // RandomizeButton
             // 
-            this.RandomizeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.RandomizeButton.Location = new System.Drawing.Point(192, 30);
             this.RandomizeButton.Name = "RandomizeButton";
             this.RandomizeButton.Size = new System.Drawing.Size(71, 25);
             this.RandomizeButton.TabIndex = 4;
             this.RandomizeButton.Text = "Randomize";
             this.RandomizeButton.UseVisualStyleBackColor = true;
+            this.RandomizeButton.Click += new System.EventHandler(this.RandomizeButton_Click);
             // 
             // SeedDialog
             // 
             this.AcceptButton = this.OKbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(298, 111);
             this.Controls.Add(this.RandomizeButton);
             this.Controls.Add(this.CancelButton);

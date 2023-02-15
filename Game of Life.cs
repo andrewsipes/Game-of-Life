@@ -1337,11 +1337,9 @@ namespace Game_of_Life
             //Set SeedNumericUpDown Value to the current seed
             dlg.SeedNumericUpDown.Value = CurrentSeed;
 
-            //Show the dialog
-            dlg.ShowDialog();
-    
+           
             //if OK pressed, we will use the random number generator to randomize the universe values
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {   //Random Generator for Random values in Universe(based on seed)
                 CurrentSeed = (int)dlg.SeedNumericUpDown.Value;
 
@@ -1350,6 +1348,9 @@ namespace Game_of_Life
 
                 //Randomize values in the universe
                 Randomize(rand);
+
+                //closes the dialogbox
+                dlg.Close();
             }
         }
     }
