@@ -161,16 +161,15 @@ namespace Game_of_Life
         bool isHUDVisible = true;
         bool isTorodial = true;
         bool isGridVisible = true;
+        bool FromSeed;
+        bool FromTime;
+        bool FromCurrentSeed;
 
         // The Timer class
         Timer timer = new Timer();
 
         // Generation count
         int generations = 0;
-
-        //initialize bools
-        bool[,] universe;
-        bool[,] scratchpad;
 
         public GameOfLife()
         {
@@ -1269,6 +1268,46 @@ namespace Game_of_Life
             scratchpad = ResizeArray(scratchpad, UniverseCellWidth, UniverseCellHeight);
 
             //Redraw the panel with correct values
+            graphicsPanel1.Invalidate();
+        }
+
+        private void RandomizeFromSeed()
+        {
+            Random rand = new Random();
+        }
+
+        private void RandomsizeFromTime()
+        {
+            Random rand = new Random();
+
+           
+        }
+
+        //Randomizes using Time as Seed
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random rand = new Random();
+
+            for (int y = 0; y < UniverseCellHeight-1; y++)
+            {
+                for (int x = 0; x < UniverseCellWidth-1; x++)
+                {
+                    int num = rand.Next(0, 5);
+
+                    if (num == 1 || num == 0 || num == 2)
+                    {
+                        scratchpad[x, y] = false;
+                    }
+
+                    else
+                    {
+                        scratchpad[x, y] = true;
+                    }
+                }
+            }
+
+            universe = scratchpad;
+
             graphicsPanel1.Invalidate();
         }
     }
