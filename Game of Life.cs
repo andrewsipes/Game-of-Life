@@ -32,6 +32,8 @@ namespace Game_of_Life
         private Color tempGridColor;
         private Color tempGridColor10;
 
+        //Initalize curent Seed
+        int CurrentSeed;
 
         //GETTERS AND SETTERS
 
@@ -177,12 +179,16 @@ namespace Game_of_Life
             
             InitializeComponent();
 
-            // Loads the saved properties
-            LoadSavedProperties();
+            // Loads the  properties
+            LoadProperties();
 
             //Delcares the size of the arrays - This location allows us to use the saved properties for cellwidth and cellheight
             universe = new bool[UniverseCellWidth, UniverseCellHeight];
             scratchpad = new bool[UniverseCellWidth, UniverseCellHeight];
+
+            //Randomize Current Seed
+            Random rand = new Random();
+            CurrentSeed = rand.Next(1, int.MaxValue);
 
             // Setup the timer
             timer.Interval = TimerInterval; // milliseconds
@@ -199,7 +205,7 @@ namespace Game_of_Life
         }
 
         //Used to Load previously saved Properties
-        private void LoadSavedProperties()
+        private void LoadProperties()
         {
             //Set Settings based on Settings File (last save)
             SetBackColor(Properties.Settings.Default.BackColor);
@@ -210,7 +216,7 @@ namespace Game_of_Life
             SetUniverseCellWidth(Properties.Settings.Default.CellWidth);
             SetUniverseCellHeight(Properties.Settings.Default.CellHeight);
             graphicsPanel1.Invalidate();
-
+         
         }
 
         //Used to Save Current Properties
@@ -1245,7 +1251,7 @@ namespace Game_of_Life
             Properties.Settings.Default.Reset();
 
             //Load saved Values
-            LoadSavedProperties();
+            LoadProperties();
 
             //Resize arrays based on settings
             universe = ResizeArray(universe, UniverseCellWidth, UniverseCellHeight);
@@ -1262,7 +1268,7 @@ namespace Game_of_Life
             Properties.Settings.Default.Reload();
 
             //Load Saved Values
-            LoadSavedProperties();
+            LoadProperties();
 
             //Resize arrays based on settings
             universe = ResizeArray(universe, UniverseCellWidth, UniverseCellHeight);
@@ -1272,40 +1278,9 @@ namespace Game_of_Life
             graphicsPanel1.Invalidate();
         }
 
-        //Randomizes using Time as Seed
-        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        //Randomizes values of the universe a pre-defined random that has been generated from seed value
+        private void Randomize(Random rand)
         {
-
-            Random rand = new Random(DateTime.Now.Day);
-
-            for (int y = 0; y < UniverseCellHeight-1; y++)
-            {
-                for (int x = 0; x < UniverseCellWidth-1; x++)
-                {
-                    int num = rand.Next(0, 5);
-
-                    if (num == 1 || num == 0 || num == 2)
-                    {
-                        scratchpad[x, y] = false;
-                    }
-
-                    else
-                    {
-                        scratchpad[x, y] = true;
-                    }
-                }
-            }
-
-            universe = scratchpad;
-
-            graphicsPanel1.Invalidate();
-        }
-
-        private void fromCurrentSeedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            Random rand = new Random();
-
             for (int y = 0; y < UniverseCellHeight - 1; y++)
             {
                 for (int x = 0; x < UniverseCellWidth - 1; x++)
@@ -1328,24 +1303,44 @@ namespace Game_of_Life
 
             graphicsPanel1.Invalidate();
         }
+        //Randomizes using Time as Seed
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Create new Random using based on Time
+            Random rand = new Random();
+
+            //Randomize Values of the universe
+            Randomize(rand);
+        }
+
+        private void fromCurrentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Creates a Random using the Current Seed
+            Random rand = new Random(CurrentSeed);
+
+            //Randomize Values of the universe
+            Randomize(rand);
+        }
 
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Create new SeedDialog
             SeedDialog dlg = new SeedDialog();
 
-            //Create Random
-            Random rand = new Random();
-            
             //Set Numeric Updown Min/Max
             dlg.SeedNumericUpDown.Minimum = 1;
             dlg.SeedNumericUpDown.Maximum = int.MaxValue;
 
             //Randomize Seed Value for numeric updown
-            dlg.SeedNumericUpDown.Value = rand.Next();
+            dlg.SeedNumericUpDown.Value = CurrentSeed;
 
             //Show the dialog
             dlg.ShowDialog();
+
+            //if (dlg.RandomizeButton.)
+            //{
+
+            //}
         }
     }
 }

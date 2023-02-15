@@ -73,6 +73,7 @@
             // 
             // RandomizeButton
             // 
+            this.RandomizeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.RandomizeButton.Location = new System.Drawing.Point(192, 30);
             this.RandomizeButton.Name = "RandomizeButton";
             this.RandomizeButton.Size = new System.Drawing.Size(71, 25);
@@ -105,7 +106,7 @@
         private System.Windows.Forms.Label SeedLabel;
         private System.Windows.Forms.Button OKbutton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.Button RandomizeButton;
         public System.Windows.Forms.NumericUpDown SeedNumericUpDown;
+        public System.Windows.Forms.Button RandomizeButton;
     }
 }
