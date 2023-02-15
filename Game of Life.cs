@@ -161,15 +161,16 @@ namespace Game_of_Life
         bool isHUDVisible = true;
         bool isTorodial = true;
         bool isGridVisible = true;
-        bool FromSeed;
-        bool FromTime;
-        bool FromCurrentSeed;
-
+       
         // The Timer class
         Timer timer = new Timer();
 
         // Generation count
         int generations = 0;
+
+        //initialize bools
+        bool[,] universe;
+        bool[,] scratchpad;
 
         public GameOfLife()
         {
