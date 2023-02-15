@@ -1272,26 +1272,44 @@ namespace Game_of_Life
             graphicsPanel1.Invalidate();
         }
 
-        private void RandomizeFromSeed()
-        {
-            Random rand = new Random();
-        }
-
-        private void RandomsizeFromTime()
-        {
-            Random rand = new Random();
-
-           
-        }
 
         //Randomizes using Time as Seed
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Random rand = new Random();
+
+            Random rand = new Random(DateTime.Now.Day);
 
             for (int y = 0; y < UniverseCellHeight-1; y++)
             {
                 for (int x = 0; x < UniverseCellWidth-1; x++)
+                {
+                    int num = rand.Next(0, 5);
+
+                    if (num == 1 || num == 0 || num == 2)
+                    {
+                        scratchpad[x, y] = false;
+                    }
+
+                    else
+                    {
+                        scratchpad[x, y] = true;
+                    }
+                }
+            }
+
+            universe = scratchpad;
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void fromCurrentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Random rand = new Random();
+
+            for (int y = 0; y < UniverseCellHeight - 1; y++)
+            {
+                for (int x = 0; x < UniverseCellWidth - 1; x++)
                 {
                     int num = rand.Next(0, 5);
 
