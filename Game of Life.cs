@@ -1272,7 +1272,6 @@ namespace Game_of_Life
             graphicsPanel1.Invalidate();
         }
 
-
         //Randomizes using Time as Seed
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1328,6 +1327,25 @@ namespace Game_of_Life
             universe = scratchpad;
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Create new SeedDialog
+            SeedDialog dlg = new SeedDialog();
+
+            //Create Random
+            Random rand = new Random();
+            
+            //Set Numeric Updown Min/Max
+            dlg.SeedNumericUpDown.Minimum = 1;
+            dlg.SeedNumericUpDown.Maximum = int.MaxValue;
+
+            //Randomize Seed Value for numeric updown
+            dlg.SeedNumericUpDown.Value = rand.Next();
+
+            //Show the dialog
+            dlg.ShowDialog();
         }
     }
 }
