@@ -77,7 +77,7 @@ namespace Game_of_Life
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusIntervalLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusAliveLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelSeed = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusSeedLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -271,21 +271,21 @@ namespace Game_of_Life
             // fromSeedToolStripMenuItem
             // 
             this.fromSeedToolStripMenuItem.Name = "fromSeedToolStripMenuItem";
-            this.fromSeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromSeedToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.fromSeedToolStripMenuItem.Text = "From Seed";
             this.fromSeedToolStripMenuItem.Click += new System.EventHandler(this.fromSeedToolStripMenuItem_Click);
             // 
             // fromCurrentSeedToolStripMenuItem
             // 
             this.fromCurrentSeedToolStripMenuItem.Name = "fromCurrentSeedToolStripMenuItem";
-            this.fromCurrentSeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromCurrentSeedToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.fromCurrentSeedToolStripMenuItem.Text = "From Current Seed";
             this.fromCurrentSeedToolStripMenuItem.Click += new System.EventHandler(this.fromCurrentSeedToolStripMenuItem_Click);
             // 
             // fromTimeToolStripMenuItem
             // 
             this.fromTimeToolStripMenuItem.Name = "fromTimeToolStripMenuItem";
-            this.fromTimeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromTimeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.fromTimeToolStripMenuItem.Text = "From Time";
             this.fromTimeToolStripMenuItem.Click += new System.EventHandler(this.fromTimeToolStripMenuItem_Click);
             // 
@@ -457,7 +457,7 @@ namespace Game_of_Life
             this.toolStripStatusLabelGenerations,
             this.ToolStripStatusIntervalLabel,
             this.ToolStripStatusAliveLabel,
-            this.toolStripStatusLabelSeed});
+            this.toolStripStatusSeedLabel});
             this.ToolStrip.Location = new System.Drawing.Point(0, 539);
             this.ToolStrip.Name = "ToolStrip";
             this.ToolStrip.Size = new System.Drawing.Size(784, 22);
@@ -482,11 +482,11 @@ namespace Game_of_Life
             this.ToolStripStatusAliveLabel.Size = new System.Drawing.Size(45, 17);
             this.ToolStripStatusAliveLabel.Text = "Alive: 0";
             // 
-            // toolStripStatusLabelSeed
+            // toolStripStatusSeedLabel
             // 
-            this.toolStripStatusLabelSeed.Name = "toolStripStatusLabelSeed";
-            this.toolStripStatusLabelSeed.Size = new System.Drawing.Size(38, 17);
-            this.toolStripStatusLabelSeed.Text = "Seed: ";
+            this.toolStripStatusSeedLabel.Name = "toolStripStatusSeedLabel";
+            this.toolStripStatusSeedLabel.Size = new System.Drawing.Size(38, 17);
+            this.toolStripStatusSeedLabel.Text = "Seed: ";
             // 
             // contextMenuStrip1
             // 
@@ -669,7 +669,7 @@ namespace Game_of_Life
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusIntervalLabel;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusAliveLabel;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSeed;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusSeedLabel;
     }
 }
 

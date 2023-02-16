@@ -231,8 +231,6 @@ namespace Game_of_Life
             Properties.Settings.Default.CellWidth = GetUniverseCellWidth();
             Properties.Settings.Default.CellHeight = GetUniverseCellHeight();
 
-            int test = Properties.Settings.Default.CellWidth;
-
             //Saves the values
             Properties.Settings.Default.Save();
         }
@@ -320,6 +318,7 @@ namespace Game_of_Life
             NextGeneration();
         }
 
+        //Renders the graphics panel
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
             //Sets Backcolor to the panel
@@ -476,7 +475,8 @@ namespace Game_of_Life
 
             //Update Labels
             this.ToolStripStatusAliveLabel.Text = "Alive: " + aliveCount.ToString();
-            this.ToolStripStatusIntervalLabel.Text = "Interval: " + GetTimerInterval().ToString();
+            this.ToolStripStatusIntervalLabel.Text = "Interval: " + timer.Interval.ToString();
+            this.toolStripStatusSeedLabel.Text = "Seed: " + CurrentSeed.ToString();
 
 
             // Font Style for Hud
@@ -506,6 +506,7 @@ namespace Game_of_Life
             cellBrush.Dispose();
         }
 
+        //Event for turning cells on an off with mo use
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             // If the left mouse button was clicked
@@ -969,14 +970,9 @@ namespace Game_of_Life
             {
                 //Update Options according to dialog box              
                 SetUniverseCellWidth((int)dlg.numericUpDownWidth.Value);
-                Properties.Settings.Default.CellWidth = (int)dlg.numericUpDownWidth.Value;
                 SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
-                Properties.Settings.Default.CellHeight = (int)dlg.numericUpDownWidth.Value;
                 SetTimerInterval((int)dlg.numericUpDownInterval.Value);
-
-                //Store WindowSizeProperties
-                int width = GetClientSizeWidth();
-                int Height = GetClientSizeHeight();
+                timer.Interval = GetTimerInterval();
 
                 //Copy Contents of current Universe into another Universe with the new size
                 universe = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
@@ -1281,9 +1277,9 @@ namespace Game_of_Life
         //Randomizes values of the universe a pre-defined random that has been generated from seed value
         private void Randomize(Random rand)
         {
-            for (int y = 0; y < UniverseCellHeight - 1; y++)
+            for (int y = 0; y < universe.GetLength(1); y++)
             {
-                for (int x = 0; x < UniverseCellWidth - 1; x++)
+                for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     int num = rand.Next(0, 5);
 
