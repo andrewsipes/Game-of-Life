@@ -473,11 +473,13 @@ namespace Game_of_Life
 
             }
 
+            //Update Timer
+            timer.Interval = GetTimerInterval();
+
             //Update Labels
             this.ToolStripStatusAliveLabel.Text = "Alive: " + aliveCount.ToString();
             this.ToolStripStatusIntervalLabel.Text = "Interval: " + timer.Interval.ToString();
             this.toolStripStatusSeedLabel.Text = "Seed: " + CurrentSeed.ToString();
-
 
             // Font Style for Hud
             font = new Font("Arial", 12f, FontStyle.Bold);
@@ -972,8 +974,7 @@ namespace Game_of_Life
                 SetUniverseCellWidth((int)dlg.numericUpDownWidth.Value);
                 SetUniverseCellHeight((int)dlg.numericUpDownHeight.Value);
                 SetTimerInterval((int)dlg.numericUpDownInterval.Value);
-                timer.Interval = GetTimerInterval();
-
+                
                 //Copy Contents of current Universe into another Universe with the new size
                 universe = ResizeArray(universe, GetUniverseCellWidth(), GetUniverseCellHeight());
                 scratchpad = ResizeArray(scratchpad, GetUniverseCellWidth(), GetUniverseCellHeight());
@@ -1020,6 +1021,7 @@ namespace Game_of_Life
             return ReplacementArray;
         }
 
+        //HUD enable / disable for Menu strip
         private void HUDToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -1040,6 +1042,7 @@ namespace Game_of_Life
             }
         }
 
+        //HUD enable / disable for Tool Strip
         private void HUDToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
