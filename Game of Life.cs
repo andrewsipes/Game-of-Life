@@ -957,7 +957,6 @@ namespace Game_of_Life
         //Options Menu that displays on Click
         //If Changes are made, essentially we need to copy the old parameters and create a new form since arrays are not resizeable
         //Then we copy the properties back to the new form.
-
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog();
@@ -1172,9 +1171,6 @@ namespace Game_of_Life
 
                     maxWidth = row.Length;
                 }
-
-                //Corrects the MaxHeight, since we actually run through the loop an extra time.
-                //maxHeight -= 1;
 
                 // Resize the current universe and scratchPad
                 // to the width and height of the file calculated above.

@@ -87,6 +87,7 @@
             this.AcceptButton = this.OKbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(298, 111);
             this.Controls.Add(this.RandomizeButton);
@@ -97,6 +98,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SeedDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Seed";
             ((System.ComponentModel.ISupportInitialize)(this.SeedNumericUpDown)).EndInit();
             this.ResumeLayout(false);
